@@ -1,0 +1,62 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "floor-composer"
+version = "0.1.0"
+description = "2D geometric curve generator for floor profiles and building components"
+authors = ["Floor Composer <dev@floorcomposer.com>"]
+readme = "README.md"
+packages = [{include = "floor_composer", from = "src"}]
+keywords = ["geometry", "curves", "floor", "building", "profiles", "2d"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[tool.poetry.urls]
+Homepage = "https://github.com/yourusername/floor-composer"
+Repository = "https://github.com/yourusername/floor-composer"
+Documentation = "https://floor-composer.readthedocs.io"
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+numpy = ">=1.20.0"
+matplotlib = ">=3.5.0"
+overrides = "^7.7.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=7.0"
+pytest-cov = ">=4.0"
+black = ">=22.0"
+flake8 = ">=5.0"
+mypy = ">=1.0"
+jupyter = ">=1.0.0"
+ipython = ">=8.0.0"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--cov=floor_composer --cov-report=html --cov-report=term-missing"
