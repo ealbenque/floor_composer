@@ -8,6 +8,8 @@ A Python library for generating 2D geometric curves and profiles for floor compo
 - **Geometric Primitives**: Points, lines, arcs, polylines
 - **Shape Factories**: Rectangles, trapezoids, wave profiles, floor compositions
 - **Visualization**: Matplotlib and SVG output (D3.js compatible)
+- **Material System**: Built-in material definitions with web visualization support
+- **Web Export**: Generate JSON data for interactive D3.js web visualizations
 - **Building Components**: Specialized functions for floor profiles, corrugated sheets, composite slabs
 - **Functional Design**: Immutable data structures, composable functions
 
@@ -18,21 +20,24 @@ A Python library for generating 2D geometric curves and profiles for floor compo
 git clone https://github.com/yourusername/floor-composer.git
 cd floor-composer
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# Install dependencies using Poetry
+poetry install --with dev
 
-# Install in development mode
-pip install -e ".[dev]"
+# Activate Poetry shell
+poetry shell
+
+# Or run commands directly with Poetry
+poetry run python examples/basic_usage.py
 ```
 
 ## Quick Start
 
 ```python
-from floor_composer import (
-    create_rectangle, create_wave_profile, create_floor_profile_array,
-    CurveViewer, SVGCurveViewer, curve_length
+from floor_composer.factories import (
+    create_rectangle, create_wave_profile, create_floor_profile_array
 )
+from floor_composer.visualization import CurveViewer, SVGCurveViewer
+from floor_composer.core import curve_length
 
 # Create a simple rectangle
 rect = create_rectangle(width=3.0, height=2.0, name="Foundation")
@@ -64,10 +69,17 @@ svg_content = svg_viewer.plot_curve(rect, stroke_color='#2563eb')
 
 ## Examples
 
-Run the basic usage examples:
+Run the usage examples:
 
 ```bash
-python examples/basic_usage.py
+# Basic usage examples
+poetry run python examples/basic_usage.py
+
+# Generate web demo data
+poetry run python examples/web_demo.py
+
+# Create default web data
+poetry run python examples/create_default_data.py
 ```
 
 ## Data Structure
@@ -119,6 +131,10 @@ This design makes curves:
 - `point_distance(p1, p2)` - Distance between points
 - `validate_curve(curve)` - Check continuity and closure
 
+### Materials & Web Export
+- `materials.py` - Material definitions (concrete, steel, timber, etc.)
+- `web_export.py` - Export geometry with materials for web visualization
+
 ### Visualization
 - `CurveViewer` - Matplotlib plotting
 - `SVGCurveViewer` - SVG generation (D3.js compatible)
@@ -128,14 +144,11 @@ This design makes curves:
 ### Architecture & Engineering
 - Floor assembly drawings
 - Structural profiles
-- Building envelope details
-- MEP routing layouts
 
 ### Manufacturing
 - Sheet metal profiles  
 - Composite panel designs
 - Prefab component specs
-- CNC tool paths
 
 ### Web Applications
 - Interactive floor builders
@@ -146,17 +159,20 @@ This design makes curves:
 ## Development
 
 ```bash
-# Run tests
-pytest
+# Run tests with coverage
+poetry run pytest
 
 # Format code
-black src/ examples/ tests/
+poetry run black src/ examples/ tests/
 
 # Type checking  
-mypy src/
+poetry run mypy src/
 
 # Lint code
-flake8 src/
+poetry run flake8 src/ tests/
+
+# Start Jupyter notebook
+poetry run jupyter notebook
 ```
 
 ## License

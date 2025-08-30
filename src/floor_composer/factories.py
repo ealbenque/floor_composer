@@ -1,15 +1,16 @@
 """Curve factory functions for creating common geometric shapes."""
 
 import numpy as np
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Tuple, Union
 
 from .core import (
     create_point, create_line_segment, create_curve, create_curve_array
 )
+from .materials import Material, get_material
 
 
 def create_rectangle(width: float, height: float, origin: Dict[str, float] = None,
-                    name: str = None) -> Dict[str, Any]:
+                    name: str = None, material: Union[str, Material] = None) -> Dict[str, Any]:
     """Create a rectangular closed curve."""
     if origin is None:
         origin = create_point(0, 0)
@@ -26,11 +27,12 @@ def create_rectangle(width: float, height: float, origin: Dict[str, float] = Non
         create_line_segment(p4, p1)
     ]
 
-    return create_curve(elements, "closed", name)
+    return create_curve(elements, "closed", name, material)
 
 
 def create_trapezoid(bottom_width: float, top_width: float, height: float,
-                    origin: Dict[str, float] = None, name: str = None) -> Dict[str, Any]:
+                    origin: Dict[str, float] = None, name: str = None, 
+                    material: Union[str, Material] = None) -> Dict[str, Any]:
     """Create a trapezoidal closed curve."""
     if origin is None:
         origin = create_point(0, 0)
@@ -50,11 +52,11 @@ def create_trapezoid(bottom_width: float, top_width: float, height: float,
         create_line_segment(p4, p1)
     ]
 
-    return create_curve(elements, "closed", name)
+    return create_curve(elements, "closed", name, material)
 
 
 def create_polyline(points: List[Dict[str, float]], closed: bool = False,
-                   name: str = None) -> Dict[str, Any]:
+                   name: str = None, material: Union[str, Material] = None) -> Dict[str, Any]:
     """Create a polyline from a list of points."""
     if len(points) < 2:
         raise ValueError("Need at least 2 points for a polyline")
@@ -70,13 +72,14 @@ def create_polyline(points: List[Dict[str, float]], closed: bool = False,
     else:
         curve_type = "open"
 
-    return create_curve(elements, curve_type, name)
+    return create_curve(elements, curve_type, name, material)
 
 
-def create_line(start: Dict[str, float], end: Dict[str, float], name: str = None) -> Dict[str, Any]:
+def create_line(start: Dict[str, float], end: Dict[str, float], name: str = None, 
+                material: Union[str, Material] = None) -> Dict[str, Any]:
     """Create a simple line curve."""
     line = create_line_segment(start, end)
-    return create_curve([line], "open", name)
+    return create_curve([line], "open", name, material)
 
 
 def create_floor_profile_array(layers: List[Tuple[str, float]], width: float = 1.0) -> Dict[str, Any]:
@@ -89,12 +92,13 @@ def create_floor_profile_array(layers: List[Tuple[str, float]], width: float = 1
     curves = []
     current_y = 0
 
-    for material, thickness in layers:
+    for material_name, thickness in layers:
         rect = create_rectangle(
             width=width,
             height=thickness,
             origin=create_point(0, current_y),
-            name=material
+            name=material_name,
+            material=material_name  # Use material name for material assignment
         )
         curves.append(rect)
         current_y += thickness
@@ -128,7 +132,8 @@ def create_trapezoidal_profile_array(profiles: List[Tuple[float, float, float]],
 
 
 def create_wave_profile(total_width: float, wave_width: float, bottom_width: float,
-                       top_width: float, height: float, name: str = None) -> Dict[str, Any]:
+                       top_width: float, height: float, name: str = None,
+                       material: Union[str, Material] = None) -> Dict[str, Any]:
     """Create a wave profile geometry like corrugated metal sheeting.
     
     Args:
@@ -197,12 +202,12 @@ def create_wave_profile(total_width: float, wave_width: float, bottom_width: flo
             points.append(create_point(slope_x, slope_y))
 
     # Create the polyline
-    return create_polyline(points, closed=False, name=name)
+    return create_polyline(points, closed=False, name=name, material=material)
 
 
 def create_closed_wave_profile(total_width: float, wave_width: float, bottom_width: float,
                               top_width: float, height: float, depth: float = None,
-                              name: str = None) -> Dict[str, Any]:
+                              name: str = None, material: Union[str, Material] = None) -> Dict[str, Any]:
     """Create a closed wave profile with optional depth (like concrete above corrugated deck).
     
     Args:
@@ -219,7 +224,7 @@ def create_closed_wave_profile(total_width: float, wave_width: float, bottom_wid
 
     # Get the open wave profile for the corrugated shape
     open_profile = create_wave_profile(total_width, wave_width, bottom_width,
-                                     top_width, height, name + "_open")
+                                     top_width, height, name + "_open", material)
 
     # Get the points from the open profile
     corrugated_points = []
@@ -271,4 +276,4 @@ def create_closed_wave_profile(total_width: float, wave_width: float, bottom_wid
         if first_point["y"] != 0:
             points.append(create_point(first_point["x"], 0))
 
-    return create_polyline(points, closed=True, name=name)
+    return create_polyline(points, closed=True, name=name, material=material)

@@ -1,7 +1,9 @@
 """Core geometric functions for 2D curve generation."""
 
 import numpy as np
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Union, Optional
+
+from .materials import Material, get_material
 
 
 def create_point(x: float, y: float) -> Dict[str, float]:
@@ -30,18 +32,25 @@ def create_arc_segment(start: Dict[str, float], end: Dict[str, float],
     }
 
 
-def create_curve(elements: List[Dict[str, Any]], curve_type: str, name: str = None) -> Dict[str, Any]:
+def create_curve(elements: List[Dict[str, Any]], curve_type: str, name: str = None, 
+                 material: Union[str, Material] = None) -> Dict[str, Any]:
     """Create a curve from elements.
     
     Args:
         elements: List of line/arc segments
         curve_type: "open" or "closed"
         name: Optional curve name
+        material: Material instance or material name string
     """
+    # Handle material conversion
+    if isinstance(material, str):
+        material = get_material(material)
+    
     curve = {
         "elements": elements,
         "curve_type": curve_type,
-        "name": name
+        "name": name,
+        "material": material.to_dict() if material else None
     }
 
     # Validate curve continuity
