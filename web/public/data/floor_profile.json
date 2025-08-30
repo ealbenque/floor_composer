@@ -1,0 +1,260 @@
+{
+  "name": "Floor Profile",
+  "curves": [
+    {
+      "id": "concrete",
+      "name": "concrete",
+      "curve_type": "closed",
+      "material": {
+        "name": "concrete",
+        "category": "structural",
+        "density": 2400.0,
+        "description": "Reinforced concrete"
+      },
+      "geometry": {
+        "elements": [
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0
+            },
+            "end": {
+              "x": 0.3,
+              "y": 0
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0.3,
+              "y": 0
+            },
+            "end": {
+              "x": 0.3,
+              "y": 0.15
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0.3,
+              "y": 0.15
+            },
+            "end": {
+              "x": 0,
+              "y": 0.15
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.15
+            },
+            "end": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "svg_path": "M 227.27 622.73 L 772.73 622.73 L 772.73 350.00 L 227.27 350.00 L 227.27 622.73 Z",
+        "length": 0.9
+      }
+    },
+    {
+      "id": "insulation",
+      "name": "insulation",
+      "curve_type": "closed",
+      "material": {
+        "name": "insulation",
+        "category": "thermal",
+        "density": 30.0,
+        "description": "Thermal insulation"
+      },
+      "geometry": {
+        "elements": [
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.15
+            },
+            "end": {
+              "x": 0.3,
+              "y": 0.15
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0.3,
+              "y": 0.15
+            },
+            "end": {
+              "x": 0.3,
+              "y": 0.22999999999999998
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0.3,
+              "y": 0.22999999999999998
+            },
+            "end": {
+              "x": 0,
+              "y": 0.22999999999999998
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.22999999999999998
+            },
+            "end": {
+              "x": 0,
+              "y": 0.15
+            }
+          }
+        ],
+        "svg_path": "M 227.27 350.00 L 772.73 350.00 L 772.73 204.55 L 227.27 204.55 L 227.27 350.00 Z",
+        "length": 0.7599999999999999
+      }
+    },
+    {
+      "id": "screed",
+      "name": "screed",
+      "curve_type": "closed",
+      "material": {
+        "name": "screed",
+        "category": "finish",
+        "density": 2000.0,
+        "description": "Floor screed"
+      },
+      "geometry": {
+        "elements": [
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.22999999999999998
+            },
+            "end": {
+              "x": 0.3,
+              "y": 0.22999999999999998
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0.3,
+              "y": 0.22999999999999998
+            },
+            "end": {
+              "x": 0.3,
+              "y": 0.27999999999999997
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0.3,
+              "y": 0.27999999999999997
+            },
+            "end": {
+              "x": 0,
+              "y": 0.27999999999999997
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.27999999999999997
+            },
+            "end": {
+              "x": 0,
+              "y": 0.22999999999999998
+            }
+          }
+        ],
+        "svg_path": "M 227.27 204.55 L 772.73 204.55 L 772.73 113.64 L 227.27 113.64 L 227.27 204.55 Z",
+        "length": 0.7
+      }
+    },
+    {
+      "id": "finish_floor",
+      "name": "finish_floor",
+      "curve_type": "closed",
+      "material": {
+        "name": "finish_floor",
+        "category": "finish",
+        "density": 800.0,
+        "description": "Floor finish material"
+      },
+      "geometry": {
+        "elements": [
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.27999999999999997
+            },
+            "end": {
+              "x": 0.3,
+              "y": 0.27999999999999997
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0.3,
+              "y": 0.27999999999999997
+            },
+            "end": {
+              "x": 0.3,
+              "y": 0.3
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0.3,
+              "y": 0.3
+            },
+            "end": {
+              "x": 0,
+              "y": 0.3
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.3
+            },
+            "end": {
+              "x": 0,
+              "y": 0.27999999999999997
+            }
+          }
+        ],
+        "svg_path": "M 227.27 113.64 L 772.73 113.64 L 772.73 77.27 L 227.27 77.27 L 227.27 113.64 Z",
+        "length": 0.64
+      }
+    }
+  ],
+  "bounds": {
+    "min_x": 0,
+    "max_x": 0.3,
+    "min_y": 0,
+    "max_y": 0.3
+  },
+  "total_length": 3.0,
+  "canvas": {
+    "width": 1000,
+    "height": 700
+  }
+}

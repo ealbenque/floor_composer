@@ -13,10 +13,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from floor_composer.factories import (
     create_rectangle, create_trapezoid, create_floor_profile_array,
-    create_wave_profile, create_closed_wave_profile
+    create_wave_profile, create_closed_wave_profile, create_polyline
 )
 from floor_composer.materials import CONCRETE, STEEL, INSULATION, SCREED, FINISH_FLOOR, METAL_SHEET
-from floor_composer.core import create_curve_array
+from floor_composer.core import create_curve_array, create_point
 from floor_composer.web_export import create_web_export_package
 
 
@@ -93,31 +93,64 @@ def create_sample_building_section():
 
 
 def create_corrugated_floor_system():
-    """Create corrugated metal floor system."""
+    """Create corrugated metal floor system with matching corrugated profiles."""
     
     print("🌊 Creating corrugated floor system...")
     
-    # Corrugated deck profile
-    corrugated_deck = create_wave_profile(
-        total_width=875,
-        wave_width=175,
-        bottom_width=65,
-        top_width=50,
-        height=44,
-        name="Corrugated Metal Deck",
-        material=METAL_SHEET
-    )
-    
-    # Composite slab (closed profile with concrete above)
-    composite_slab = create_closed_wave_profile(
+    # First create the master corrugated profile 
+    master_corrugated = create_wave_profile(
         total_width=875,
         wave_width=175,
         bottom_width=130,
         top_width=50,
         height=44,
-        depth=150,  # Total depth including concrete
-        name="Composite Floor Slab",
+        name="Master Corrugated Profile",
+        material=METAL_SHEET
+    )
+    
+    # Extract the corrugated points to ensure identical geometry
+    corrugated_points = []
+    for element in master_corrugated["elements"]:
+        if not corrugated_points:  # First element
+            corrugated_points.append(element["start"])
+        corrugated_points.append(element["end"])
+    
+    # For concrete: manually build closed profile using the SAME corrugated points
+    # Add concrete slab on top of the exact same corrugated shape
+    first_point = corrugated_points[0]
+    last_point = corrugated_points[-1]
+    
+    # Build closed profile points for concrete
+    concrete_points = []
+    # Start at top-left of concrete slab
+    concrete_points.append(create_point(first_point["x"], 150))  # depth=150
+    # Top edge of concrete slab 
+    concrete_points.append(create_point(last_point["x"], 150))
+    # Right edge down to corrugated profile
+    concrete_points.append(create_point(last_point["x"], last_point["y"]))
+    
+    # Add corrugated profile points in reverse order (right to left for closed profile)
+    reversed_corrugated_points = list(reversed(corrugated_points))
+    for point in reversed_corrugated_points:
+        concrete_points.append(point)
+    
+    # Close back to start (left edge up to concrete)
+    concrete_points.append(create_point(first_point["x"], first_point["y"]))
+    
+    # Create composite slab with exact same corrugated geometry
+    composite_slab = create_polyline(
+        concrete_points,
+        closed=True,
+        name="Composite Floor Slab", 
         material=CONCRETE
+    )
+    
+    # Now create steel deck using the SAME REVERSED order as the concrete bottom
+    corrugated_deck = create_polyline(
+        reversed_corrugated_points,
+        closed=False,
+        name="Corrugated Metal Deck",
+        material=METAL_SHEET
     )
     
     # Create array

@@ -1,0 +1,382 @@
+{
+  "name": "Building Section",
+  "curves": [
+    {
+      "id": "foundation",
+      "name": "Foundation",
+      "curve_type": "closed",
+      "material": {
+        "name": "concrete",
+        "category": "structural",
+        "density": 2400.0,
+        "description": "Reinforced concrete"
+      },
+      "geometry": {
+        "elements": [
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0
+            },
+            "end": {
+              "x": 6.0,
+              "y": 0
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 6.0,
+              "y": 0
+            },
+            "end": {
+              "x": 6.0,
+              "y": 0.8
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 6.0,
+              "y": 0.8
+            },
+            "end": {
+              "x": 0,
+              "y": 0.8
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.8
+            },
+            "end": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "svg_path": "M 90.91 442.05 L 909.09 442.05 L 909.09 332.95 L 90.91 332.95 L 90.91 442.05 Z",
+        "length": 13.600000000000001
+      }
+    },
+    {
+      "id": "floor_slab",
+      "name": "Floor Slab",
+      "curve_type": "closed",
+      "material": {
+        "name": "concrete",
+        "category": "structural",
+        "density": 2400.0,
+        "description": "Reinforced concrete"
+      },
+      "geometry": {
+        "elements": [
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.8
+            },
+            "end": {
+              "x": 6.0,
+              "y": 0.8
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 6.0,
+              "y": 0.8
+            },
+            "end": {
+              "x": 6.0,
+              "y": 0.9500000000000001
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 6.0,
+              "y": 0.9500000000000001
+            },
+            "end": {
+              "x": 0,
+              "y": 0.9500000000000001
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.9500000000000001
+            },
+            "end": {
+              "x": 0,
+              "y": 0.8
+            }
+          }
+        ],
+        "svg_path": "M 90.91 332.95 L 909.09 332.95 L 909.09 312.50 L 90.91 312.50 L 90.91 332.95 Z",
+        "length": 12.3
+      }
+    },
+    {
+      "id": "steel_beam",
+      "name": "Steel Beam",
+      "curve_type": "closed",
+      "material": {
+        "name": "steel",
+        "category": "structural",
+        "density": 7850.0,
+        "description": "Structural steel"
+      },
+      "geometry": {
+        "elements": [
+          {
+            "type": "line",
+            "start": {
+              "x": 2.85,
+              "y": 0.95
+            },
+            "end": {
+              "x": 3.15,
+              "y": 0.95
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 3.15,
+              "y": 0.95
+            },
+            "end": {
+              "x": 3.1,
+              "y": 1.35
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 3.1,
+              "y": 1.35
+            },
+            "end": {
+              "x": 2.9,
+              "y": 1.35
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 2.9,
+              "y": 1.35
+            },
+            "end": {
+              "x": 2.85,
+              "y": 0.95
+            }
+          }
+        ],
+        "svg_path": "M 479.55 312.50 L 520.45 312.50 L 513.64 257.95 L 486.36 257.95 L 479.55 312.50 Z",
+        "length": 1.3062257748298551
+      }
+    },
+    {
+      "id": "insulation_layer",
+      "name": "Insulation Layer",
+      "curve_type": "closed",
+      "material": {
+        "name": "insulation",
+        "category": "thermal",
+        "density": 30.0,
+        "description": "Thermal insulation"
+      },
+      "geometry": {
+        "elements": [
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.95
+            },
+            "end": {
+              "x": 6.0,
+              "y": 0.95
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 6.0,
+              "y": 0.95
+            },
+            "end": {
+              "x": 6.0,
+              "y": 1.05
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 6.0,
+              "y": 1.05
+            },
+            "end": {
+              "x": 0,
+              "y": 1.05
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 1.05
+            },
+            "end": {
+              "x": 0,
+              "y": 0.95
+            }
+          }
+        ],
+        "svg_path": "M 90.91 312.50 L 909.09 312.50 L 909.09 298.86 L 90.91 298.86 L 90.91 312.50 Z",
+        "length": 12.2
+      }
+    },
+    {
+      "id": "screed_layer",
+      "name": "Screed Layer",
+      "curve_type": "closed",
+      "material": {
+        "name": "screed",
+        "category": "finish",
+        "density": 2000.0,
+        "description": "Floor screed"
+      },
+      "geometry": {
+        "elements": [
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 1.05
+            },
+            "end": {
+              "x": 6.0,
+              "y": 1.05
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 6.0,
+              "y": 1.05
+            },
+            "end": {
+              "x": 6.0,
+              "y": 1.1
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 6.0,
+              "y": 1.1
+            },
+            "end": {
+              "x": 0,
+              "y": 1.1
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 1.1
+            },
+            "end": {
+              "x": 0,
+              "y": 1.05
+            }
+          }
+        ],
+        "svg_path": "M 90.91 298.86 L 909.09 298.86 L 909.09 292.05 L 90.91 292.05 L 90.91 298.86 Z",
+        "length": 12.100000000000001
+      }
+    },
+    {
+      "id": "finish_floor",
+      "name": "Finish Floor",
+      "curve_type": "closed",
+      "material": {
+        "name": "finish_floor",
+        "category": "finish",
+        "density": 800.0,
+        "description": "Floor finish material"
+      },
+      "geometry": {
+        "elements": [
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 1.1
+            },
+            "end": {
+              "x": 6.0,
+              "y": 1.1
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 6.0,
+              "y": 1.1
+            },
+            "end": {
+              "x": 6.0,
+              "y": 1.12
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 6.0,
+              "y": 1.12
+            },
+            "end": {
+              "x": 0,
+              "y": 1.12
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 1.12
+            },
+            "end": {
+              "x": 0,
+              "y": 1.1
+            }
+          }
+        ],
+        "svg_path": "M 90.91 292.05 L 909.09 292.05 L 909.09 289.32 L 90.91 289.32 L 90.91 292.05 Z",
+        "length": 12.04
+      }
+    }
+  ],
+  "bounds": {
+    "min_x": 0,
+    "max_x": 6.0,
+    "min_y": 0,
+    "max_y": 1.35
+  },
+  "total_length": 63.54622577482986,
+  "canvas": {
+    "width": 1000,
+    "height": 700
+  }
+}

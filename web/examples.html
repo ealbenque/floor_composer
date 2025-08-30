@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floor Composer - Examples</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            max-width: 800px; 
+            margin: 2rem auto; 
+            padding: 0 2rem;
+            line-height: 1.6;
+        }
+        h1 { color: #2563eb; text-align: center; }
+        .example { 
+            background: #f8f9fa; 
+            padding: 1.5rem; 
+            margin: 1.5rem 0; 
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+        }
+        .example h3 { color: #1f2937; margin-bottom: 0.5rem; }
+        .example p { color: #6b7280; margin-bottom: 1rem; }
+        .btn { 
+            background: #2563eb; 
+            color: white; 
+            padding: 0.75rem 1.5rem; 
+            text-decoration: none; 
+            border-radius: 0.375rem; 
+            display: inline-block;
+            margin-right: 1rem;
+        }
+        .btn:hover { background: #1d4ed8; }
+        .tech-note {
+            background: #e0f2fe;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            border-left: 4px solid #0891b2;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🏗️ Floor Composer Examples</h1>
+    
+    <div class="tech-note">
+        <strong>How it works:</strong> Python generates raw geometry + assigns materials, 
+        D3.js handles interactive visualization with customizable styles, patterns, and hatches.
+    </div>
+    
+    <div class="example">
+        <h3>🏢 Building Section</h3>
+        <p>Multi-material building section with foundation, slab, beam, insulation, and finishes.</p>
+        <a href="index.html?data=data/building_section.json" class="btn">View Example</a>
+    </div>
+    
+    <div class="example">
+        <h3>🌊 Corrugated Floor System</h3>
+        <p>Corrugated metal deck with composite concrete slab - complex wave profiles.</p>
+        <a href="index.html?data=data/corrugated_system.json" class="btn">View Example</a>
+    </div>
+    
+    <div class="example">
+        <h3>📚 Floor Profile</h3>
+        <p>Typical layered floor composition showing material stratification.</p>
+        <a href="index.html?data=data/floor_profile.json" class="btn">View Example</a>
+    </div>
+    
+    <div class="tech-note">
+        <strong>Features:</strong>
+        <ul>
+            <li>✅ Material-based styling (colors, patterns, hatches)</li>
+            <li>✅ Interactive zoom, pan, and hover tooltips</li>
+            <li>✅ Show/hide materials with sidebar controls</li>
+            <li>✅ D3.js SVG rendering with Python-generated path data</li>
+        </ul>
+    </div>
+    
+    <hr style="margin: 2rem 0;">
+    <p style="text-align: center; color: #6b7280;">
+        <small>Generated with Floor Composer - Python backend, D3.js frontend</small>
+    </p>
+</body>
+</html>

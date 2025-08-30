@@ -1,0 +1,260 @@
+{
+  "name": "Default Floor Section",
+  "curves": [
+    {
+      "id": "foundation",
+      "name": "Foundation",
+      "curve_type": "closed",
+      "material": {
+        "name": "concrete",
+        "category": "structural",
+        "density": 2400.0,
+        "description": "Reinforced concrete"
+      },
+      "geometry": {
+        "elements": [
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0
+            },
+            "end": {
+              "x": 4.0,
+              "y": 0
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 4.0,
+              "y": 0
+            },
+            "end": {
+              "x": 4.0,
+              "y": 0.5
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 4.0,
+              "y": 0.5
+            },
+            "end": {
+              "x": 0,
+              "y": 0.5
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.5
+            },
+            "end": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "svg_path": "M 81.82 391.48 L 718.18 391.48 L 718.18 311.93 L 81.82 311.93 L 81.82 391.48 Z",
+        "length": 9.0
+      }
+    },
+    {
+      "id": "floor_slab",
+      "name": "Floor Slab",
+      "curve_type": "closed",
+      "material": {
+        "name": "concrete",
+        "category": "structural",
+        "density": 2400.0,
+        "description": "Reinforced concrete"
+      },
+      "geometry": {
+        "elements": [
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.5
+            },
+            "end": {
+              "x": 4.0,
+              "y": 0.5
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 4.0,
+              "y": 0.5
+            },
+            "end": {
+              "x": 4.0,
+              "y": 0.65
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 4.0,
+              "y": 0.65
+            },
+            "end": {
+              "x": 0,
+              "y": 0.65
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.65
+            },
+            "end": {
+              "x": 0,
+              "y": 0.5
+            }
+          }
+        ],
+        "svg_path": "M 81.82 311.93 L 718.18 311.93 L 718.18 288.07 L 81.82 288.07 L 81.82 311.93 Z",
+        "length": 8.3
+      }
+    },
+    {
+      "id": "insulation",
+      "name": "Insulation",
+      "curve_type": "closed",
+      "material": {
+        "name": "insulation",
+        "category": "thermal",
+        "density": 30.0,
+        "description": "Thermal insulation"
+      },
+      "geometry": {
+        "elements": [
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.65
+            },
+            "end": {
+              "x": 4.0,
+              "y": 0.65
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 4.0,
+              "y": 0.65
+            },
+            "end": {
+              "x": 4.0,
+              "y": 0.75
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 4.0,
+              "y": 0.75
+            },
+            "end": {
+              "x": 0,
+              "y": 0.75
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 0,
+              "y": 0.75
+            },
+            "end": {
+              "x": 0,
+              "y": 0.65
+            }
+          }
+        ],
+        "svg_path": "M 81.82 288.07 L 718.18 288.07 L 718.18 272.16 L 81.82 272.16 L 81.82 288.07 Z",
+        "length": 8.2
+      }
+    },
+    {
+      "id": "steel_beam",
+      "name": "Steel Beam",
+      "curve_type": "closed",
+      "material": {
+        "name": "steel",
+        "category": "structural",
+        "density": 7850.0,
+        "description": "Structural steel"
+      },
+      "geometry": {
+        "elements": [
+          {
+            "type": "line",
+            "start": {
+              "x": 1.85,
+              "y": 0.75
+            },
+            "end": {
+              "x": 2.15,
+              "y": 0.75
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 2.15,
+              "y": 0.75
+            },
+            "end": {
+              "x": 2.1,
+              "y": 1.15
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 2.1,
+              "y": 1.15
+            },
+            "end": {
+              "x": 1.9000000000000001,
+              "y": 1.15
+            }
+          },
+          {
+            "type": "line",
+            "start": {
+              "x": 1.9000000000000001,
+              "y": 1.15
+            },
+            "end": {
+              "x": 1.85,
+              "y": 0.75
+            }
+          }
+        ],
+        "svg_path": "M 376.14 272.16 L 423.86 272.16 L 415.91 208.52 L 384.09 208.52 L 376.14 272.16 Z",
+        "length": 1.3062257748298545
+      }
+    }
+  ],
+  "bounds": {
+    "min_x": 0,
+    "max_x": 4.0,
+    "min_y": 0,
+    "max_y": 1.15
+  },
+  "total_length": 26.806225774829855,
+  "canvas": {
+    "width": 800,
+    "height": 600
+  }
+}
