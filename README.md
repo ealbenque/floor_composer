@@ -11,6 +11,8 @@ A Python library for generating 2D geometric curves and profiles for floor compo
 - **Material System**: Built-in material definitions with web visualization support
 - **Web Export**: Generate JSON data for interactive D3.js web visualizations
 - **Building Components**: Specialized functions for floor profiles, corrugated sheets, composite slabs
+- **React Web Viewer**: Modern TypeScript frontend with interactive D3.js visualization
+- **Geometric Precision**: Perfect alignment between steel and concrete corrugated profiles
 - **Functional Design**: Immutable data structures, composable functions
 
 ## Installation
@@ -66,6 +68,27 @@ floor_profile = create_floor_profile_array(floor_layers, width=0.3)
 svg_viewer = SVGCurveViewer()
 svg_content = svg_viewer.plot_curve(rect, stroke_color='#2563eb')
 ```
+
+## Web Visualization
+
+Start the interactive React web viewer:
+
+```bash
+# Generate example data 
+poetry run python examples/web_demo.py
+
+# Start the React development server
+cd web && npm run dev
+
+# Open browser to: http://localhost:3001
+```
+
+Features:
+- **Interactive D3.js visualization** with zoom, pan, and hover
+- **Material controls** with toggle switches for each material type
+- **Example dropdown** with building sections, corrugated systems, and floor profiles
+- **Perfect geometric alignment** between steel and concrete profiles
+- **Material styling**: Steel (black outline, no fill), concrete (light grey with diagonal hatch)
 
 ## Examples
 
@@ -188,6 +211,14 @@ MIT License - see LICENSE file for details.
 5. Submit a pull request
 
 ## Changelog
+
+### v0.2.0
+- **React Web Viewer**: Modern TypeScript frontend with Next.js and D3.js
+- **Perfect Geometric Alignment**: Steel and concrete corrugated profiles use identical polylines
+- **Material Styling System**: Black steel outlines, concrete with diagonal hatch patterns
+- **Interactive Visualization**: Zoom, pan, hover, material toggles
+- **Shadcn UI Components**: Professional gray theme with responsive design
+- **Fixed Corrugated System**: Trapezoidal steel profile now matches concrete bottom exactly
 
 ### v0.1.0
 - Initial release

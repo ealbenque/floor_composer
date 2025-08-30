@@ -107,7 +107,7 @@ poetry run python examples/web_demo.py
 cd web && npm run dev
 
 # Open browser to:
-# http://localhost:3000 (React app with example dropdown)
+# http://localhost:3001 (React app with example dropdown)
 ```
 
 ### Web Export Workflow
@@ -130,6 +130,8 @@ create_web_export_package(building, "web/data", "my_building")
 - Default materials: concrete, steel, insulation, screed, finish_floor, timber, masonry, membrane, metal_sheet
 - React frontend with TypeScript interfaces, Zustand state management
 - Shadcn UI components with gray theme, material toggle switches
+- **Styling**: Steel profiles (black outline, no fill), concrete (light grey with diagonal hatch pattern)
+- **Geometric Alignment**: Steel and concrete corrugated profiles use identical polylines for perfect alignment
 
 ### Web Directory Structure
 ```
