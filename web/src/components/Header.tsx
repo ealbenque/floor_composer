@@ -1,27 +1,11 @@
 'use client';
 
-import { useViewerStore } from '@/lib/store';
-import { EXAMPLES, getExampleByValue } from '@/lib/data-loader';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 export function Header() {
-  const { selectedExample, setSelectedExample, loadExample } = useViewerStore();
-  
-  const handleExampleChange = async (value: string) => {
-    setSelectedExample(value);
-    const example = getExampleByValue(value);
-    if (example) {
-      await loadExample(example.file);
-    }
-  };
-
-  const currentExample = getExampleByValue(selectedExample);
+  const pathname = usePathname();
 
   return (
     <header className="bg-slate-900 text-white px-4 lg:px-6 py-4 shadow-lg">
@@ -33,32 +17,26 @@ export function Header() {
           </div>
         </div>
         
-        <div className="flex items-center space-x-2 lg:space-x-3 flex-shrink-0">
-          <label htmlFor="example-select" className="text-sm font-medium text-slate-300 hidden sm:block">
-            Example:
-          </label>
-          <Select value={selectedExample} onValueChange={handleExampleChange}>
-            <SelectTrigger 
-              id="example-select"
-              className="w-40 sm:w-48 lg:w-64 bg-slate-800 border-slate-700 text-white hover:bg-slate-700 focus:ring-slate-500"
+        <nav className="flex items-center space-x-2">
+          <Link href="/">
+            <Button 
+              variant={pathname === '/' ? 'secondary' : 'ghost'} 
+              size="sm"
+              className="text-white hover:text-slate-200"
             >
-              <SelectValue placeholder="Select an example">
-                <span className="truncate">{currentExample?.label}</span>
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-700">
-              {EXAMPLES.map((example) => (
-                <SelectItem 
-                  key={example.value} 
-                  value={example.value}
-                  className="text-white hover:bg-slate-700 focus:bg-slate-700"
-                >
-                  {example.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+              Examples
+            </Button>
+          </Link>
+          <Link href="/corrugated">
+            <Button 
+              variant={pathname === '/corrugated' ? 'secondary' : 'ghost'} 
+              size="sm"
+              className="text-white hover:text-slate-200"
+            >
+              Corrugated System
+            </Button>
+          </Link>
+        </nav>
       </div>
     </header>
   );

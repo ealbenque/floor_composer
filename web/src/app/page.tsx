@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { Header } from '@/components/Header';
 import { GeometryViewer } from '@/components/viewer/GeometryViewer';
+import { ExampleSelector } from '@/components/viewer/ExampleSelector';
 import { MaterialControls } from '@/components/viewer/MaterialControls';
 import { ViewControls } from '@/components/viewer/ViewControls';
 import { InfoPanel } from '@/components/viewer/InfoPanel';
@@ -36,6 +37,7 @@ export default function Home() {
         {/* Controls Panel */}
         <div className="w-80 lg:w-96 bg-white border-r border-slate-200 flex flex-col max-lg:hidden">
           <div className="p-4 lg:p-6 space-y-4 lg:space-y-6 overflow-y-auto">
+            <ExampleSelector />
             <ViewControls />
             <MaterialControls />
             <InfoPanel />
@@ -45,6 +47,7 @@ export default function Home() {
         {/* Mobile Controls - Only visible on small screens */}
         <div className="lg:hidden absolute top-20 left-4 right-4 z-10 bg-white rounded-lg shadow-lg border border-slate-200 max-h-96 overflow-y-auto">
           <div className="p-4 space-y-4">
+            <ExampleSelector />
             <ViewControls />
             <MaterialControls />
             <InfoPanel />
