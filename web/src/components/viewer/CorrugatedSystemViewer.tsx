@@ -275,7 +275,7 @@ export function CorrugatedSystemViewer() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <GeometryViewer 
+            <CorrugatedGeometryViewer 
               geometryData={systemData.geometry.combined_system}
               materialPalette={{
                 metal_sheet: {

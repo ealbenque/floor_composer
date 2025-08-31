@@ -1,7 +1,9 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import * as d3 from 'd3'
+import { Button } from '@/components/ui/button'
+import { ZoomIn, ZoomOut, RotateCcw } from 'lucide-react'
 
 interface MaterialPalette {
   [key: string]: {
@@ -48,36 +50,75 @@ export function CorrugatedGeometryViewer({
   className = "" 
 }: CorrugatedGeometryViewerProps) {
   const svgRef = useRef<SVGSVGElement>(null)
+  const [transform, setTransform] = useState<d3.ZoomTransform>(d3.zoomIdentity)
+  const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown>>()
+
+  const fitToBounds = useCallback(() => {
+    if (!svgRef.current || !geometryData) return
+    
+    const svg = d3.select(svgRef.current)
+    const bounds = geometryData.bounds
+    
+    // Chart dimensions
+    const margin = { top: 30, right: 30, bottom: 30, left: 30 }
+    const width = 600 - margin.left - margin.right
+    const height = 300 - margin.bottom - margin.top
+    
+    const dataWidth = bounds.max_x - bounds.min_x
+    const dataHeight = bounds.max_y - bounds.min_y
+    
+    if (dataWidth === 0 || dataHeight === 0) return
+    
+    // Calculate scale to fit bounds with padding
+    const padding = 0.1
+    const scaleX = width / (dataWidth * (1 + padding * 2))
+    const scaleY = height / (dataHeight * (1 + padding * 2))
+    const scale = Math.min(scaleX, scaleY)
+    
+    // Calculate center position
+    const centerX = (bounds.min_x + bounds.max_x) / 2
+    const centerY = (bounds.min_y + bounds.max_y) / 2
+    const translateX = width / 2 - centerX * scale + margin.left
+    const translateY = height / 2 - centerY * scale + margin.top
+    
+    const newTransform = d3.zoomIdentity
+      .translate(translateX, translateY)
+      .scale(scale)
+    
+    svg.transition()
+      .duration(750)
+      .call(zoomRef.current!.transform, newTransform)
+  }, [geometryData])
 
   useEffect(() => {
     if (!svgRef.current || !geometryData) return
 
     const svg = d3.select(svgRef.current)
     svg.selectAll("*").remove()
+    
+    // Setup zoom behavior
+    const zoom = d3.zoom<SVGSVGElement, unknown>()
+      .scaleExtent([0.1, 10])
+      .on('zoom', (event) => {
+        const { transform } = event
+        setTransform(transform)
+        svg.select('.main-group')
+          .attr('transform', transform.toString())
+      })
+    
+    zoomRef.current = zoom
+    svg.call(zoom)
 
     // Chart dimensions
-    const margin = { top: 20, right: 20, bottom: 20, left: 20 }
+    const margin = { top: 30, right: 30, bottom: 30, left: 30 }
     const width = 600 - margin.left - margin.right
     const height = 300 - margin.bottom - margin.top
 
     const g = svg.append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`)
+      .attr("class", "main-group")
 
-    // Calculate scales based on bounds
+    // Use identity scale since zoom will handle transforms
     const bounds = geometryData.bounds
-    const dataWidth = bounds.max_x - bounds.min_x
-    const dataHeight = bounds.max_y - bounds.min_y
-    
-    // Add padding
-    const padding = Math.max(dataWidth, dataHeight) * 0.1
-    
-    const xScale = d3.scaleLinear()
-      .domain([bounds.min_x - padding, bounds.max_x + padding])
-      .range([0, width])
-
-    const yScale = d3.scaleLinear()
-      .domain([bounds.min_y - padding, bounds.max_y + padding])
-      .range([height, 0]) // Flip Y axis for proper SVG rendering
 
     // Create pattern definitions for hatching
     const defs = svg.append("defs")
@@ -99,15 +140,8 @@ export function CorrugatedGeometryViewer({
       .attr("stroke", "#9ca3af")
       .attr("stroke-width", 1)
 
-    // Transform SVG paths to fit the scales
-    const transformPath = (svgPath: string) => {
-      // Parse SVG path and transform coordinates
-      return svgPath.replace(/([ML])\s*([\d.-]+)\s+([\d.-]+)/g, (match, command, x, y) => {
-        const transformedX = xScale(parseFloat(x) / 1000) // Convert from mm to m
-        const transformedY = yScale(parseFloat(y) / 1000) // Convert from mm to m
-        return `${command} ${transformedX} ${transformedY}`
-      })
-    }
+    // No transformation needed - use raw coordinates
+    const transformPath = (svgPath: string) => svgPath
 
     // Render each curve
     geometryData.curves.forEach((curve) => {
@@ -135,24 +169,45 @@ export function CorrugatedGeometryViewer({
 
     // Add title
     svg.append("text")
-      .attr("x", width / 2 + margin.left)
-      .attr("y", 15)
+      .attr("x", 300)
+      .attr("y", 20)
       .attr("text-anchor", "middle")
       .attr("fill", "currentColor")
       .style("font-size", "14px")
       .style("font-weight", "500")
       .text("Composite Section - Side View")
+    
+    // Auto-fit to bounds on initial load
+    setTimeout(() => fitToBounds(), 100)
 
   }, [geometryData, materialPalette])
 
   return (
-    <div className={`flex justify-center ${className}`}>
-      <svg
-        ref={svgRef}
-        width={600}
-        height={300}
-        className="border border-slate-200 rounded bg-white"
-      />
+    <div className={className}>
+      <div className="flex justify-between items-center mb-2">
+        <div className="text-sm text-slate-600">
+          Use mouse to pan and zoom. Scroll to zoom, drag to pan.
+        </div>
+        <div className="flex gap-2">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={fitToBounds}
+          >
+            <RotateCcw className="h-4 w-4 mr-1" />
+            Fit to Bounds
+          </Button>
+        </div>
+      </div>
+      <div className="flex justify-center">
+        <svg
+          ref={svgRef}
+          width={600}
+          height={300}
+          className="border border-slate-200 rounded bg-white cursor-move"
+          style={{ userSelect: 'none' }}
+        />
+      </div>
     </div>
   )
 }
