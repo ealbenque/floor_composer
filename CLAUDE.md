@@ -95,10 +95,13 @@ polyline_generator.ipynb     # Main Jupyter notebook with full implementation
 ## Web Visualization System
 
 ### Architecture
-- **Backend (Python)**: Generates raw geometry + assigns materials to curves
+- **Backend (Python)**: Static JSON generation OR live FastAPI server
 - **Frontend (React + D3.js)**: Modern React app with Shadcn UI components, gray theme, TypeScript
+- **FastAPI Endpoints**: `/api/profiles`, `/api/corrugated-system`, `/api/health` for live calculations
 
 ### Quick Start Web Viewer
+
+**Static Data Mode (Basic Examples):**
 ```bash
 # Generate example data
 poetry run python examples/web_demo.py
@@ -106,13 +109,23 @@ poetry run python examples/web_demo.py
 # Start React development server  
 cd web && npm run dev
 
-# Open browser to:
-# http://localhost:3001 (React app with example dropdown)
+# Open browser to: http://localhost:3001
+```
+
+**FastAPI Mode (Corrugated System Calculator):**
+```bash
+# Start FastAPI backend (port 8000)
+poetry run python src/api_server.py
+
+# Start React development server (port 3001)
+cd web && npm run dev
+
+# Open browser to: http://localhost:3001
 ```
 
 ### Web Export Workflow
 ```python
-from floor_composer.factories import create_rectangle
+from floor_composer.factories import create_rectangle, create_trapezoid, create_curve_array
 from floor_composer.materials import CONCRETE, STEEL  
 from floor_composer.web_export import create_web_export_package
 
@@ -146,12 +159,19 @@ web/                        # React + Next.js application
 └── README.md             # React app documentation
 ```
 
-## Notes for Claude
-- All dependencies are managed through Poetry
-- Use `poetry run` prefix for all Python commands
-- Jupyter kernel "Floor Composer (Poetry)" is configured for notebooks
-- Main implementation is in `polyline_generator.ipynb`
-- Package uses functional programming with dictionary-based data structures
-- **UPDATED**: Modern React frontend with TypeScript, Shadcn UI, gray theme
-- **UPDATED**: Web system: Python backend generates JSON, React frontend visualizes with D3.js
-- **UPDATED**: Single-page application with dropdown example selection and responsive design
+## Architecture Notes
+- **Package Manager**: Poetry handles all Python dependencies
+- **Command Prefix**: Always use `poetry run` for Python commands
+- **Jupyter Integration**: Kernel "Floor Composer (Poetry)" configured for notebooks
+- **Core Implementation**: Main functionality in `polyline_generator.ipynb`
+- **Design Pattern**: Functional programming with immutable dictionary-based data structures
+- **Frontend Stack**: Modern React + Next.js with TypeScript, Shadcn UI, gray theme
+- **Web Architecture**: Python backend generates JSON, React frontend visualizes with D3.js
+- **User Interface**: Single-page application with example dropdown and responsive design
+
+## Development Workflow
+- **Code Quality**: Run `poetry run black src/ tests/` for formatting
+- **Type Safety**: Use `poetry run mypy src/` for type checking
+- **Testing**: Execute `poetry run pytest` for test suite
+- **Linting**: Run `poetry run flake8 src/ tests/` for code quality
+- **Web Development**: Use `cd web && npm run dev` for React development server

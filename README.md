@@ -18,10 +18,6 @@ A Python library for generating 2D geometric curves and profiles for floor compo
 ## Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/floor-composer.git
-cd floor-composer
-
 # Install dependencies using Poetry
 poetry install --with dev
 
@@ -71,17 +67,33 @@ svg_content = svg_viewer.plot_curve(rect, stroke_color='#2563eb')
 
 ## Web Visualization
 
-Start the interactive React web viewer:
+The system supports both **static data generation** and **live API backend**:
 
+### Option 1: Static Data (Recommended for basic use)
 ```bash
-# Generate example data 
+# 1. Generate example data (creates JSON files in web/public/data/)
 poetry run python examples/web_demo.py
 
-# Start the React development server
+# 2. Start the React development server
 cd web && npm run dev
 
-# Open browser to: http://localhost:3001
+# 3. Open browser to: http://localhost:3001
 ```
+
+### Option 2: FastAPI Backend (For corrugated system calculator)
+```bash
+# 1. Start the FastAPI server (runs on port 8000)
+poetry run uvicorn src.api_server:app --reload
+
+# 2. Start the React development server
+cd web && npm run dev
+
+# 3. Open browser to: http://localhost:3001
+```
+
+**Architecture**: 
+- **Static**: Python generates JSON files → React loads them with D3.js
+- **Live API**: FastAPI backend serves corrugated system calculations → React makes HTTP requests
 
 Features:
 - **Interactive D3.js visualization** with zoom, pan, and hover
@@ -188,7 +200,7 @@ poetry run pytest
 # Format code
 poetry run black src/ examples/ tests/
 
-# Type checking  
+# Type checking
 poetry run mypy src/
 
 # Lint code

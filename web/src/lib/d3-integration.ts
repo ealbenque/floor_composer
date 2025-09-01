@@ -8,6 +8,7 @@ export interface D3Config {
   minZoom: number;
   maxZoom: number;
   transitionDuration: number;
+  fixedSize?: { width: number; height: number };
 }
 
 export const DEFAULT_CONFIG: D3Config = {
@@ -15,6 +16,14 @@ export const DEFAULT_CONFIG: D3Config = {
   minZoom: 0.1,
   maxZoom: 10,
   transitionDuration: 750,
+};
+
+export const FIXED_SIZE_CONFIG: D3Config = {
+  margin: { top: 30, right: 30, bottom: 30, left: 30 },
+  minZoom: 0.1,
+  maxZoom: 10,
+  transitionDuration: 750,
+  fixedSize: { width: 600, height: 300 },
 };
 
 export class D3Viewer {
@@ -35,17 +44,26 @@ export class D3Viewer {
     // Clear any existing content
     d3.select(this.containerRef).selectAll('*').remove();
 
-    // Get container dimensions
-    const containerRect = this.containerRef.getBoundingClientRect();
-    this.width = containerRect.width - this.config.margin.left - this.config.margin.right;
-    this.height = containerRect.height - this.config.margin.top - this.config.margin.bottom;
+    // Determine dimensions (fixed size or responsive)
+    let svgWidth: number, svgHeight: number;
+    if (this.config.fixedSize) {
+      svgWidth = this.config.fixedSize.width;
+      svgHeight = this.config.fixedSize.height;
+    } else {
+      const containerRect = this.containerRef.getBoundingClientRect();
+      svgWidth = containerRect.width;
+      svgHeight = containerRect.height;
+    }
+    
+    this.width = svgWidth - this.config.margin.left - this.config.margin.right;
+    this.height = svgHeight - this.config.margin.top - this.config.margin.bottom;
 
     // Create SVG
     this.svg = d3
       .select(this.containerRef)
       .append('svg')
-      .attr('width', containerRect.width)
-      .attr('height', containerRect.height)
+      .attr('width', svgWidth)
+      .attr('height', svgHeight)
       .style('background', 'white')
       .style('border', '1px solid #e5e7eb')
       .style('border-radius', '0.5rem');
@@ -179,7 +197,7 @@ export class D3Viewer {
         materialName,
         isVisible,
         geometry: curve.geometry,
-        svg_path: (curve.geometry as any)?.svg_path
+        svg_path: (curve.geometry as { svg_path?: string })?.svg_path
       });
       
       if (!isVisible) return;
@@ -189,7 +207,7 @@ export class D3Viewer {
         : { fill: '#6b7280', stroke: '#374151', pattern: 'solid' as const };
 
       // Get SVG path from geometry or fallback to curve level
-      const svgPath = (curve.geometry as any)?.svg_path || curve.svg_path || '';
+      const svgPath = (curve.geometry as { svg_path?: string })?.svg_path || curve.svg_path || '';
       
       console.log(`Using SVG path for ${curve.id}:`, svgPath);
       

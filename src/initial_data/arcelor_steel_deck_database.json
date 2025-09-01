@@ -156,7 +156,7 @@
           "fire_resistance": {
             "REI_minutes": 30,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 46,
@@ -174,7 +174,7 @@
           "fire_resistance": {
             "REI_minutes": 30,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 47,
@@ -192,7 +192,7 @@
           "fire_resistance": {
             "REI_minutes": 90,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 48,
@@ -210,7 +210,7 @@
           "fire_resistance": {
             "REI_minutes": 90,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 49,
@@ -228,7 +228,7 @@
           "fire_resistance": {
             "REI_minutes": 120,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 50,
@@ -246,7 +246,7 @@
           "fire_resistance": {
             "REI_minutes": 120,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 50,
@@ -264,7 +264,7 @@
           "fire_resistance": {
             "REI_minutes": 120,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 51,
@@ -282,7 +282,7 @@
           "fire_resistance": {
             "REI_minutes": 120,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 52,
@@ -300,7 +300,7 @@
           "fire_resistance": {
             "REI_minutes": 120,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 52,
@@ -318,7 +318,7 @@
           "fire_resistance": {
             "REI_minutes": 120,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 53,
@@ -360,7 +360,7 @@
           "fire_resistance": {
             "REI_minutes": 30,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 48,
@@ -378,7 +378,7 @@
           "fire_resistance": {
             "REI_minutes": 60,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 49,
@@ -396,7 +396,7 @@
           "fire_resistance": {
             "REI_minutes": 90,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 50,
@@ -414,7 +414,7 @@
           "fire_resistance": {
             "REI_minutes": 90,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 50,
@@ -432,7 +432,7 @@
           "fire_resistance": {
             "REI_minutes": 120,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 50,
@@ -450,7 +450,7 @@
           "fire_resistance": {
             "REI_minutes": 120,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 52,
@@ -468,7 +468,7 @@
           "fire_resistance": {
             "REI_minutes": 120,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 52,
@@ -486,7 +486,7 @@
           "fire_resistance": {
             "REI_minutes": 120,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 53,
@@ -504,7 +504,7 @@
           "fire_resistance": {
             "REI_minutes": 120,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 53,
@@ -522,7 +522,7 @@
           "fire_resistance": {
             "REI_minutes": 120,
             "default_rating": "REI 30",
-            "note": "Higher resistance requires reinforcement in profile ribs"
+            "note": "Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete"
           },
           "acoustic_performance": {
             "Rw_dB": 54,

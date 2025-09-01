@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Slider } from '@/components/ui/slider'
-import { CorrugatedGeometryViewer } from './CorrugatedGeometryViewer'
+import { GeometryViewer } from './GeometryViewer'
 import { LoadCapacityChart } from './LoadCapacityChart'
 import { Loader2, Settings, Info } from 'lucide-react'
 
@@ -275,7 +275,7 @@ export function CorrugatedSystemViewer() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <CorrugatedGeometryViewer 
+            <GeometryViewer 
               geometryData={systemData.geometry.combined_system}
               materialPalette={{
                 metal_sheet: {
@@ -291,6 +291,10 @@ export function CorrugatedSystemViewer() {
                   description: "Concrete section"
                 }
               }}
+              visibleMaterials={new Set(['metal_sheet', 'concrete'])}
+              mode="fixed"
+              showControls={true}
+              title="Composite Section - Side View"
             />
           </CardContent>
         </Card>
@@ -326,13 +330,13 @@ export function CorrugatedSystemViewer() {
               <CardContent>
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-sm">REI Rating:</span>
+                    <span className="text-sm">Max REI Rating:</span>
                     <Badge variant="secondary">
                       REI {systemData.properties.fire_resistance.REI_minutes}
                     </Badge>
                   </div>
                   <div className="text-xs text-muted-foreground">
-                    {systemData.properties.fire_resistance.note}
+                    Standard resistance is REI30, higher resistance requires additional steel reinforcement in the concrete
                   </div>
                 </div>
               </CardContent>
@@ -344,16 +348,41 @@ export function CorrugatedSystemViewer() {
                 <CardTitle className="text-lg">Acoustic Performance</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-sm">Rw:</span>
-                    <Badge variant="secondary">
-                      {systemData.properties.acoustic_performance.Rw_dB} dB
-                    </Badge>
+                <div className="space-y-3">
+                  <div className="space-y-1">
+                    <div className="flex justify-between">
+                      <span className="text-sm">Rw (C ; Ctr):</span>
+                      <Badge variant="secondary">
+                        {systemData.properties.acoustic_performance.Rw_dB} ({systemData.properties.acoustic_performance.C_Ctr_dB.C} ; {systemData.properties.acoustic_performance.C_Ctr_dB.Ctr}) dB
+                      </Badge>
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      Affaiblissement acoustique pondéré
+                    </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div>C: {systemData.properties.acoustic_performance.C_Ctr_dB.C} dB</div>
-                    <div>Ctr: {systemData.properties.acoustic_performance.C_Ctr_dB.Ctr} dB</div>
+                  
+                  <div className="space-y-1">
+                    <div className="flex justify-between">
+                      <span className="text-sm">Ra = Rw + C:</span>
+                      <Badge variant="outline">
+                        {systemData.properties.acoustic_performance.Rw_dB + systemData.properties.acoustic_performance.C_Ctr_dB.C} dB
+                      </Badge>
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      Affaiblissement acoustique pour les bruits aériens intérieurs
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-1">
+                    <div className="flex justify-between">
+                      <span className="text-sm">Ra,tr = Rw + Ctr:</span>
+                      <Badge variant="outline">
+                        {systemData.properties.acoustic_performance.Rw_dB + systemData.properties.acoustic_performance.C_Ctr_dB.Ctr} dB
+                      </Badge>
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      Affaiblissement acoustique pour les bruits aériens extérieurs
+                    </div>
                   </div>
                 </div>
               </CardContent>

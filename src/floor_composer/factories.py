@@ -148,7 +148,7 @@ def create_wave_profile(total_width: float, wave_width: float, bottom_width: flo
         name = "Wave Profile"
 
     # Calculate derived dimensions
-    side_slope_width = (wave_width - bottom_width) / 2  # Width of each sloped section
+    side_slope_width = (wave_width - bottom_width - top_width) / 2  # Width of each sloped section
     top_offset = (bottom_width - top_width) / 2  # Horizontal offset for top section
 
     # Calculate number of complete waves
@@ -174,7 +174,7 @@ def create_wave_profile(total_width: float, wave_width: float, bottom_width: flo
         points.append(create_point(current_x, height))
 
         # Right descending slope
-        current_x += side_slope_width - top_offset
+        current_x += side_slope_width
         points.append(create_point(current_x, 0))
 
         # Bottom flat section
@@ -182,7 +182,7 @@ def create_wave_profile(total_width: float, wave_width: float, bottom_width: flo
         points.append(create_point(current_x, 0))
 
         # Left ascending slope (start of next wave)
-        current_x += side_slope_width - top_offset
+        current_x += side_slope_width
         points.append(create_point(current_x, height))
 
     # Handle remainder if total_width doesn't divide evenly by wave_width

@@ -20,18 +20,24 @@ export function Header() {
         <nav className="flex items-center space-x-2">
           <Link href="/">
             <Button 
-              variant={pathname === '/' ? 'secondary' : 'ghost'} 
+              variant="ghost" 
               size="sm"
-              className="text-white hover:text-slate-200"
+              className={pathname === '/' 
+                ? "text-white bg-slate-700 hover:bg-slate-600 hover:text-white" 
+                : "text-white hover:text-slate-200"
+              }
             >
               Examples
             </Button>
           </Link>
           <Link href="/corrugated">
             <Button 
-              variant={pathname === '/corrugated' ? 'secondary' : 'ghost'} 
+              variant="ghost" 
               size="sm"
-              className="text-white hover:text-slate-200"
+              className={pathname === '/corrugated' 
+                ? "text-white bg-slate-700 hover:bg-slate-600 hover:text-white" 
+                : "text-white hover:text-slate-200"
+              }
             >
               Corrugated System
             </Button>

@@ -2,18 +2,48 @@
 
 import { useEffect, useRef } from 'react';
 import { useViewerStore } from '@/lib/store';
-import { D3Viewer } from '@/lib/d3-integration';
+import { D3Viewer, DEFAULT_CONFIG, FIXED_SIZE_CONFIG } from '@/lib/d3-integration';
+import { GeometryData, MaterialPalette } from '@/types/geometry';
+import { Button } from '@/components/ui/button';
+import { RotateCcw } from 'lucide-react';
 
-export function GeometryViewer() {
+interface GeometryViewerProps {
+  // For external data (corrugated system)
+  geometryData?: GeometryData;
+  materialPalette?: MaterialPalette;
+  visibleMaterials?: Set<string>;
+  
+  // Configuration
+  mode?: 'responsive' | 'fixed';
+  showControls?: boolean;
+  className?: string;
+  title?: string;
+}
+
+export function GeometryViewer({ 
+  geometryData: externalGeometryData,
+  materialPalette: externalMaterialPalette,
+  visibleMaterials: externalVisibleMaterials,
+  mode = 'responsive',
+  showControls = false,
+  className = '',
+  title
+}: GeometryViewerProps = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<D3Viewer | null>(null);
-  const { geometryData, materialPalette, visibleMaterials } = useViewerStore();
+  const storeData = useViewerStore();
+  
+  // Use external data if provided, otherwise use store data
+  const geometryData = externalGeometryData || storeData.geometryData;
+  const materialPalette = externalMaterialPalette || storeData.materialPalette;
+  const visibleMaterials = externalVisibleMaterials || storeData.visibleMaterials;
 
   // Initialize D3 viewer
   useEffect(() => {
     if (!containerRef.current) return;
 
-    viewerRef.current = new D3Viewer(containerRef.current);
+    const config = mode === 'fixed' ? FIXED_SIZE_CONFIG : DEFAULT_CONFIG;
+    viewerRef.current = new D3Viewer(containerRef.current, config);
     viewerRef.current.initialize();
 
     // Cleanup on unmount
@@ -23,21 +53,21 @@ export function GeometryViewer() {
         viewerRef.current = null;
       }
     };
-  }, []);
+  }, [mode]);
 
   // Render data when geometry data or material palette changes
   useEffect(() => {
     if (!viewerRef.current || !geometryData) return;
 
     viewerRef.current.render(geometryData, materialPalette, visibleMaterials);
-  }, [geometryData, materialPalette]);
+  }, [geometryData, materialPalette, visibleMaterials]);
 
   // Update materials when visibility changes (without repositioning)
   useEffect(() => {
     if (!viewerRef.current || !geometryData) return;
 
     viewerRef.current.updateMaterials(geometryData, materialPalette, visibleMaterials);
-  }, [visibleMaterials]);
+  }, [visibleMaterials, geometryData, materialPalette]);
 
   // Store viewer reference for external controls
   useEffect(() => {
@@ -47,13 +77,46 @@ export function GeometryViewer() {
     }
   }, []);
 
+  const handleFitToBounds = () => {
+    if (viewerRef.current) {
+      viewerRef.current.fitToBounds();
+    }
+  };
+
+
   return (
-    <div className="h-full w-full bg-white rounded-lg border border-slate-200 shadow-sm">
-      <div 
-        ref={containerRef} 
-        className="w-full h-full"
-        style={{ minHeight: '400px' }}
-      />
+    <div className={className}>
+      {showControls && (
+        <div className="flex justify-between items-center mb-2">
+          <div className="text-sm text-slate-600">
+            Use mouse to pan and zoom. Scroll to zoom, drag to pan.
+          </div>
+          <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleFitToBounds}
+            >
+              <RotateCcw className="h-4 w-4 mr-1" />
+              Fit to Bounds
+            </Button>
+          </div>
+        </div>
+      )}
+      
+      {title && (
+        <div className="text-center mb-2">
+          <h3 className="text-sm font-medium text-slate-700">{title}</h3>
+        </div>
+      )}
+      
+      <div className={mode === 'fixed' ? 'flex justify-center' : 'h-full w-full bg-white rounded-lg border border-slate-200 shadow-sm'}>
+        <div 
+          ref={containerRef} 
+          className={mode === 'fixed' ? 'w-auto h-auto' : 'w-full h-full'}
+          style={mode === 'responsive' ? { minHeight: '400px' } : {}}
+        />
+      </div>
     </div>
   );
 }
