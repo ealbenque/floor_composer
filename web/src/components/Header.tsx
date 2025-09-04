@@ -42,6 +42,18 @@ export function Header() {
               Corrugated System
             </Button>
           </Link>
+          <Link href="/clt">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              className={pathname === '/clt' 
+                ? "text-white bg-slate-700 hover:bg-slate-600 hover:text-white" 
+                : "text-white hover:text-slate-200"
+              }
+            >
+              CLT Database
+            </Button>
+          </Link>
         </nav>
       </div>
     </header>

@@ -26,7 +26,7 @@ app.add_middleware(
 )
 
 # Load the steel deck database
-DATABASE_PATH = Path(__file__).parent / "initial_data" / "arcelor_steel_deck_database.json"
+DATABASE_PATH = Path(__file__).parent.parent / "web" / "public" / "data" / "arcelor_steel_deck_database.json"
 
 def load_steel_deck_database() -> Dict[str, Any]:
     """Load the ArcelorMittal steel deck database."""
