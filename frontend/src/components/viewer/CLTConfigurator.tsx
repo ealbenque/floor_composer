@@ -181,8 +181,8 @@ export function CLTConfigurator() {
             </Button>
           </div>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <CardContent className="space-y-4 sm:space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {/* Span Length */}
             <div className="space-y-2">
               <Label htmlFor="span">Required Span (L) - meters</Label>
@@ -280,7 +280,7 @@ export function CLTConfigurator() {
             </div>
 
             {/* Type Chape */}
-            <div className="space-y-2 md:col-span-2 lg:col-span-1">
+            <div className="space-y-2 sm:col-span-2 lg:col-span-1">
               <Label>Floor Type (Type Chape)</Label>
               <Select 
                 value={filters.type_chape_user} 
@@ -306,7 +306,7 @@ export function CLTConfigurator() {
       {/* Results Summary */}
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Database className="h-5 w-5" />
@@ -316,7 +316,7 @@ export function CLTConfigurator() {
                 Products matching your requirements
               </CardDescription>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <Badge variant="secondary">
                 {stats.totalProducts} products
               </Badge>
@@ -331,7 +331,8 @@ export function CLTConfigurator() {
                   className="flex items-center gap-1"
                 >
                   <Download className="h-4 w-4" />
-                  Export CSV
+                  <span className="hidden sm:inline">Export CSV</span>
+                  <span className="sm:hidden">Export</span>
                 </Button>
               )}
             </div>
@@ -345,15 +346,15 @@ export function CLTConfigurator() {
               <p className="text-sm">Try adjusting your requirements or resetting filters.</p>
             </div>
           ) : (
-            <div className="border rounded-lg">
+            <div className="border rounded-lg overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
                     <TableHead className="w-[50px]"></TableHead>
-                    <TableHead>Product Reference</TableHead>
-                    <TableHead>Height</TableHead>
-                    <TableHead>Fire Resistance</TableHead>
-                    <TableHead>Matching Configs</TableHead>
+                    <TableHead className="min-w-[140px]">Product Reference</TableHead>
+                    <TableHead className="min-w-[80px]">Height</TableHead>
+                    <TableHead className="min-w-[100px]">Fire Resistance</TableHead>
+                    <TableHead className="min-w-[120px]">Matching Configs</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>

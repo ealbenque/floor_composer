@@ -9,49 +9,51 @@ export function Header() {
 
   return (
     <header className="bg-slate-900 text-white px-4 lg:px-6 py-4 shadow-lg">
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center space-x-4 min-w-0">
+      <div className="flex items-center justify-between gap-2 sm:gap-4">
+        <div className="flex items-center min-w-0 flex-shrink">
           <div className="min-w-0">
-            <h1 className="text-xl lg:text-2xl font-bold tracking-tight">Floor Composer</h1>
-            <p className="text-slate-300 text-sm hidden sm:block">Interactive 2D Geometry Viewer</p>
+            <h1 className="text-lg sm:text-xl lg:text-2xl font-bold tracking-tight">Floor Composer</h1>
+            <p className="text-slate-300 text-xs sm:text-sm hidden sm:block">Interactive 2D Geometry Viewer</p>
           </div>
         </div>
         
-        <nav className="flex items-center space-x-2">
+        <nav className="flex items-center gap-1 sm:gap-2 overflow-x-auto">
           <Link href="/">
             <Button 
               variant="ghost" 
               size="sm"
-              className={pathname === '/' 
+              className={`whitespace-nowrap text-xs sm:text-sm px-2 sm:px-3 ${pathname === '/' 
                 ? "text-white bg-slate-700 hover:bg-slate-600 hover:text-white" 
                 : "text-white hover:text-slate-200"
-              }
+              }`}
             >
-              Examples
+              <span className="hidden sm:inline">Examples</span>
+              <span className="sm:hidden">Ex</span>
             </Button>
           </Link>
           <Link href="/corrugated">
             <Button 
               variant="ghost" 
               size="sm"
-              className={pathname === '/corrugated' 
+              className={`whitespace-nowrap text-xs sm:text-sm px-2 sm:px-3 ${pathname === '/corrugated' 
                 ? "text-white bg-slate-700 hover:bg-slate-600 hover:text-white" 
                 : "text-white hover:text-slate-200"
-              }
+              }`}
             >
-              Corrugated System
+              <span className="hidden sm:inline">Corrugated System</span>
+              <span className="sm:hidden">Corrugated</span>
             </Button>
           </Link>
           <Link href="/clt">
             <Button 
               variant="ghost" 
               size="sm"
-              className={pathname === '/clt' 
+              className={`whitespace-nowrap text-xs sm:text-sm px-2 sm:px-3 ${pathname === '/clt' 
                 ? "text-white bg-slate-700 hover:bg-slate-600 hover:text-white" 
                 : "text-white hover:text-slate-200"
-              }
+              }`}
             >
-              CLT Database
+              CLT
             </Button>
           </Link>
         </nav>

@@ -128,7 +128,7 @@ export function CorrugatedSystemViewer() {
       {/* Controls Panel */}
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Settings className="h-5 w-5" />
@@ -142,14 +142,16 @@ export function CorrugatedSystemViewer() {
               variant="outline" 
               size="sm"
               onClick={() => setShowProperties(!showProperties)}
+              className="flex items-center gap-1 self-start sm:self-center"
             >
-              <Info className="h-4 w-4 mr-1" />
-              {showProperties ? 'Hide' : 'Show'} Properties
+              <Info className="h-4 w-4" />
+              <span className="hidden sm:inline">{showProperties ? 'Hide' : 'Show'} Properties</span>
+              <span className="sm:hidden">{showProperties ? 'Hide' : 'Show'}</span>
             </Button>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {/* Profile Selector */}
             <div className="space-y-2">
               <label className="text-sm font-medium">Steel Profile</label>
