@@ -8,8 +8,8 @@ import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Slider } from '@/components/ui/slider'
 import { CLTPreDesignChart } from './CLTPreDesignChart'
-import { Loader2, Database, Filter, Info, BarChart3 } from 'lucide-react'
-import { CLTDatabase, CLTProduct, PreDesignEntry, CLTChartPoint, CLTStatistics } from '@/types/clt'
+import { Loader2, Database, Filter, BarChart3 } from 'lucide-react'
+import { CLTDatabase, CLTChartPoint, CLTStatistics } from '@/types/clt'
 
 export function CLTDatabaseViewer() {
   // State
@@ -47,11 +47,9 @@ export function CLTDatabaseViewer() {
         // Initialize chape types and q values from data
         const allChapeTypes = new Set<string>()
         const allQValues = new Set<number>()
-        let totalEntries = 0
         Object.values(data).forEach(product => {
           if (product && product["pre-design"] && Array.isArray(product["pre-design"])) {
             product["pre-design"].forEach(entry => {
-              totalEntries++
               if (entry && entry.type_chape) {
                 allChapeTypes.add(entry.type_chape)
               }
@@ -243,8 +241,8 @@ export function CLTDatabaseViewer() {
     if (!database) return []
     const types = new Set<string>()
     Object.values(database).forEach(product => {
-      if (product && product.pre_design && Array.isArray(product.pre_design)) {
-        product.pre_design.forEach(entry => {
+      if (product && product["pre-design"] && Array.isArray(product["pre-design"])) {
+        product["pre-design"].forEach(entry => {
           if (entry && entry.type_chape) {
             types.add(entry.type_chape)
           }
@@ -362,7 +360,7 @@ export function CLTDatabaseViewer() {
                     {currentProduct.fire_resistance}
                   </Badge>
                   <Badge variant="outline">
-                    {currentProduct.pre_design?.length || 0} configurations
+                    {currentProduct["pre-design"]?.length || 0} configurations
                   </Badge>
                 </div>
               </div>

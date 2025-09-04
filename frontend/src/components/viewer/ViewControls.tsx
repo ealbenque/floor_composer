@@ -18,7 +18,7 @@ export function ViewControls() {
   const handleFitToBounds = () => {
     const viewer = window.floorComposerViewer;
     if (viewer?.fitToBounds && geometryData) {
-      viewer.fitToBounds(geometryData.bounds);
+      viewer.fitToBounds();
     }
   };
 

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
-import { CLTChartPoint, CLTChartProps } from '@/types/clt'
+import { CLTChartProps } from '@/types/clt'
 
 export function CLTPreDesignChart({ 
   data, 

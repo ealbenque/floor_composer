@@ -9,6 +9,7 @@ import { Slider } from '@/components/ui/slider'
 import { GeometryViewer } from './GeometryViewer'
 import { LoadCapacityChart } from './LoadCapacityChart'
 import { Loader2, Settings, Info } from 'lucide-react'
+import { CorrugatedGeometry, CorrugatedProperties, ProfileInfo as ProfileInfoType } from '@/types/geometry'
 
 // API Types
 interface ProfileInfo {
@@ -21,36 +22,9 @@ interface ProfileInfo {
 }
 
 interface CorrugatedSystemData {
-  geometry: {
-    steel_profile: any
-    concrete_section: any
-    combined_system: any
-  }
-  properties: {
-    slab_thickness_m: number
-    concrete_volume_m3_m2: number
-    theoretical_floor_weight_N_m2: number
-    fire_resistance: {
-      REI_minutes: number
-      default_rating: string
-      note: string
-    }
-    acoustic_performance: {
-      Rw_dB: number
-      C_Ctr_dB: { C: number; Ctr: number }
-    }
-    mechanical_performance: {
-      single_span_load_capacity_N_m2: number[]
-      multiple_spans_load_capacity_N_m2: number[]
-    }
-  }
-  profile_info: {
-    name: string
-    description: string
-    manufacturer: string
-    geometry: any
-    steel_properties: any
-  }
+  geometry: CorrugatedGeometry
+  properties: CorrugatedProperties
+  profile_info: ProfileInfoType
 }
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
@@ -82,7 +56,7 @@ export function CorrugatedSystemViewer() {
           setSelectedSteelThickness(firstProfile.steel_thickness_variants[0])
           setConcreteThickness((firstProfile.concrete_thickness_range.min + firstProfile.concrete_thickness_range.max) / 2)
         }
-      } catch (err) {
+      } catch {
         setError('Failed to load profiles. Please ensure the API server is running.')
       }
     }
