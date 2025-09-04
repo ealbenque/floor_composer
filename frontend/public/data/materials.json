@@ -1,0 +1,56 @@
+{
+  "concrete": {
+    "fill": "#d1d5db",
+    "stroke": "#6b7280",
+    "pattern": "diagonal_hatch",
+    "description": "Reinforced concrete"
+  },
+  "steel": {
+    "fill": "#ef4444",
+    "stroke": "#dc2626",
+    "pattern": "diagonal",
+    "description": "Structural steel"
+  },
+  "insulation": {
+    "fill": "#fbbf24",
+    "stroke": "#f59e0b",
+    "pattern": "dots",
+    "description": "Thermal insulation"
+  },
+  "screed": {
+    "fill": "#8b5cf6",
+    "stroke": "#7c3aed",
+    "pattern": "solid",
+    "description": "Floor screed"
+  },
+  "finish_floor": {
+    "fill": "#10b981",
+    "stroke": "#059669",
+    "pattern": "solid",
+    "description": "Floor finish"
+  },
+  "timber": {
+    "fill": "#d97706",
+    "stroke": "#b45309",
+    "pattern": "wood_grain",
+    "description": "Structural timber"
+  },
+  "masonry": {
+    "fill": "#dc2626",
+    "stroke": "#b91c1c",
+    "pattern": "brick",
+    "description": "Brick masonry"
+  },
+  "membrane": {
+    "fill": "#1f2937",
+    "stroke": "#111827",
+    "pattern": "solid",
+    "description": "Waterproof membrane"
+  },
+  "metal_sheet": {
+    "fill": "none",
+    "stroke": "#000000",
+    "pattern": "none",
+    "description": "Metal sheeting"
+  }
+}

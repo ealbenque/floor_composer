@@ -1,0 +1,13 @@
+# Large source files (PDFs, etc.)
+sources/*.pdf
+sources/*.PDF
+sources/**/*.pdf
+sources/**/*.PDF
+
+# Keep directory structure but ignore large files
+!sources/README.md
+
+# Temporary data processing files
+*.tmp
+*.temp
+.processing/

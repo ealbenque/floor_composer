@@ -1,0 +1,44 @@
+services:
+  - type: web
+    name: floor-composer-backend
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: |
+      cd backend
+      pip install -r requirements.txt
+    startCommand: |
+      cd backend
+      uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    rootDir: backend
+    buildFilter:
+      paths:
+      - backend/**
+    envVars:
+      - key: PYTHONPATH
+        value: /opt/render/project/src/backend/src:/opt/render/project/src/backend
+      - key: DATABASE_PATH
+        value: /opt/render/project/src/backend/data/arcelor_steel_deck_database.json
+
+  - type: web
+    name: floor-composer-frontend
+    runtime: node
+    region: oregon
+    plan: free
+    buildCommand: |
+      cd frontend
+      npm ci
+      npm run build
+    startCommand: |
+      cd frontend
+      npm start
+    rootDir: frontend
+    buildFilter:
+      paths:
+      - frontend/**
+      - shared/**
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
