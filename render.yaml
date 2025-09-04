@@ -9,7 +9,7 @@ services:
       pip install -r requirements.txt
     startCommand: |
       cd backend
-      uvicorn api.main:app --host 0.0.0.0 --port $PORT
+      gunicorn api.main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
     rootDir: backend
     buildFilter:
       paths:
@@ -36,9 +36,8 @@ services:
     buildFilter:
       paths:
       - frontend/**
-      - shared/**
     envVars:
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_API_URL
-        sync: false
+        value: https://floor-composer-backend.onrender.com

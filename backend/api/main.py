@@ -24,7 +24,12 @@ app = FastAPI(title="Floor Composer API", version="1.0.0")
 # Add CORS middleware for React frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3001", "http://localhost:3000"],  # React dev server
+    allow_origins=[
+        "http://localhost:3001", 
+        "http://localhost:3000",  # React dev server
+        "https://floor-composer-frontend.onrender.com",  # Production frontend
+        "https://*.onrender.com"  # Allow all render.com subdomains
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
