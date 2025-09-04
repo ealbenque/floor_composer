@@ -87,18 +87,21 @@ export function GeometryViewer({
   return (
     <div className={className}>
       {showControls && (
-        <div className="flex justify-between items-center mb-2">
-          <div className="text-sm text-slate-600">
-            Use mouse to pan and zoom. Scroll to zoom, drag to pan.
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-2">
+          <div className="text-xs sm:text-sm text-slate-600">
+            <span className="hidden sm:inline">Use mouse to pan and zoom. Scroll to zoom, drag to pan.</span>
+            <span className="sm:hidden">Touch to pan and zoom.</span>
           </div>
           <div className="flex gap-2">
             <Button 
               variant="outline" 
               size="sm" 
               onClick={handleFitToBounds}
+              className="text-xs sm:text-sm"
             >
               <RotateCcw className="h-4 w-4 mr-1" />
-              Fit to Bounds
+              <span className="hidden sm:inline">Fit to Bounds</span>
+              <span className="sm:hidden">Fit</span>
             </Button>
           </div>
         </div>
@@ -110,11 +113,11 @@ export function GeometryViewer({
         </div>
       )}
       
-      <div className={mode === 'fixed' ? 'flex justify-center' : 'h-full w-full bg-white rounded-lg border border-slate-200 shadow-sm'}>
+      <div className={mode === 'fixed' ? 'flex justify-center' : 'h-full w-full bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden'}>
         <div 
           ref={containerRef} 
           className={mode === 'fixed' ? 'w-auto h-auto' : 'w-full h-full'}
-          style={mode === 'responsive' ? { minHeight: '400px' } : {}}
+          style={mode === 'responsive' ? { minHeight: '300px' } : {}}
         />
       </div>
     </div>

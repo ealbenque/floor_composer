@@ -162,9 +162,9 @@ export function CorrugatedSystemViewer() {
                 <SelectContent>
                   {profiles.map(profile => (
                     <SelectItem key={profile.key} value={profile.key}>
-                      <div className="flex flex-col">
-                        <span>{profile.name}</span>
-                        <span className="text-xs text-muted-foreground">
+                      <div className="flex flex-col max-w-full">
+                        <span className="font-medium truncate">{profile.name}</span>
+                        <span className="text-xs text-muted-foreground line-clamp-2 sm:line-clamp-1">
                           {profile.description}
                         </span>
                       </div>
@@ -251,27 +251,30 @@ export function CorrugatedSystemViewer() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <GeometryViewer 
-              geometryData={systemData.geometry.combined_system}
-              materialPalette={{
-                metal_sheet: {
-                  fill: "none",
-                  stroke: "#374151", 
-                  pattern: "none",
-                  description: "Steel profile"
-                },
-                concrete: {
-                  fill: "#e5e7eb",
-                  stroke: "#6b7280",
-                  pattern: "diagonal_hatch",
-                  description: "Concrete section"
-                }
-              }}
-              visibleMaterials={new Set(['metal_sheet', 'concrete'])}
-              mode="fixed"
-              showControls={true}
-              title="Composite Section - Side View"
-            />
+            <div className="overflow-x-auto">
+              <GeometryViewer 
+                geometryData={systemData.geometry.combined_system}
+                materialPalette={{
+                  metal_sheet: {
+                    fill: "none",
+                    stroke: "#374151", 
+                    pattern: "none",
+                    description: "Steel profile"
+                  },
+                  concrete: {
+                    fill: "#e5e7eb",
+                    stroke: "#6b7280",
+                    pattern: "diagonal_hatch",
+                    description: "Concrete section"
+                  }
+                }}
+                visibleMaterials={new Set(['metal_sheet', 'concrete'])}
+                mode="responsive"
+                showControls={true}
+                title="Composite Section - Side View"
+                className="min-w-0"
+              />
+            </div>
           </CardContent>
         </Card>
       )}
