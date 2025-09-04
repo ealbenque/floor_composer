@@ -27,8 +27,13 @@ from .factories import (
     create_closed_wave_profile,
 )
 
-# Visualization
-from .visualization import CurveViewer, SVGCurveViewer
+# Visualization (optional - requires matplotlib)
+try:
+    from .visualization import CurveViewer, SVGCurveViewer
+except ImportError:
+    # Visualization components unavailable - OK for API-only deployment
+    CurveViewer = None
+    SVGCurveViewer = None
 
 # Utilities
 from .utils import (
@@ -65,7 +70,7 @@ __all__ = [
     "create_wave_profile",
     "create_closed_wave_profile",
     
-    # Visualization
+    # Visualization (optional)
     "CurveViewer",
     "SVGCurveViewer",
     

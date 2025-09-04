@@ -12,8 +12,10 @@ import sys
 from pathlib import Path
 
 # Add src directory to Python path
-sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
+src_path = str(Path(__file__).parent.parent / 'src')
+sys.path.insert(0, src_path)
 
+# Import directly from modules to avoid visualization dependencies
 from floor_composer.core import create_point, create_curve_array
 from floor_composer.factories import create_wave_profile, create_closed_wave_profile
 from floor_composer.web_export import curve_to_web_dict, curve_array_to_web_dict

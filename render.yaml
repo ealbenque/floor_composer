@@ -16,7 +16,7 @@ services:
       - backend/**
     envVars:
       - key: PYTHONPATH
-        value: /opt/render/project/src/backend/src:/opt/render/project/src/backend
+        value: /opt/render/project/src/backend/src
       - key: DATABASE_PATH
         value: /opt/render/project/src/backend/data/arcelor_steel_deck_database.json
 
