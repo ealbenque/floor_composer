@@ -56,6 +56,19 @@ export function Header() {
               CLT
             </Button>
           </Link>
+          <Link href="/structural">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              className={`whitespace-nowrap text-xs sm:text-sm px-2 sm:px-3 ${pathname === '/structural' 
+                ? "text-white bg-slate-700 hover:bg-slate-600 hover:text-white" 
+                : "text-white hover:text-slate-200"
+              }`}
+            >
+              <span className="hidden sm:inline">Structural</span>
+              <span className="sm:hidden">Struct</span>
+            </Button>
+          </Link>
         </nav>
       </div>
     </header>

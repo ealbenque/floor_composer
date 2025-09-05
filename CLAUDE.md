@@ -62,6 +62,12 @@ cd frontend && npm start
 cd frontend && npm run lint
 ```
 
+### Frontend Development Guidelines
+- **ALWAYS use existing components first**: Check `/frontend/src/components/` for reusable components before creating new ones
+- **Component Libraries**: Prioritize Shadcn UI and Radix UI components over custom implementations
+- **Existing Patterns**: Study existing components to understand naming conventions, TypeScript patterns, and styling approaches
+- **File Structure**: Follow the established component organization in `/frontend/src/components/`
+
 ### Jupyter
 ```bash
 # Start Jupyter Notebook with Poetry environment
