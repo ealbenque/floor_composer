@@ -1,32 +1,60 @@
 # Floor Composer
 
-A Python library for generating 2D geometric curves and profiles for floor compositions and building components. Perfect for architectural applications, structural engineering, and building information modeling (BIM).
+A comprehensive full-stack application for generating 2D geometric curves and profiles for floor compositions and building components. Perfect for architectural applications, structural engineering, and building information modeling (BIM).
 
 ## Features
 
-- **Pure Python**: Dictionary-based data structures, JSON serializable
+- **Full-Stack Architecture**: Separate backend (Python/FastAPI) and frontend (React/Next.js) services
+- **Pure Python Backend**: Dictionary-based data structures, JSON serializable
+- **Modern React Frontend**: TypeScript, Next.js 15, Shadcn UI components, Tailwind CSS
 - **Geometric Primitives**: Points, lines, arcs, polylines
 - **Shape Factories**: Rectangles, trapezoids, wave profiles, floor compositions
-- **Visualization**: Matplotlib and SVG output (D3.js compatible)
-- **Material System**: Built-in material definitions with web visualization support
-- **Web Export**: Generate JSON data for interactive D3.js web visualizations
+- **Interactive Visualization**: D3.js integration with zoom, pan, hover interactions
+- **Material System**: Built-in material definitions with toggle controls
+- **Steel Deck Database**: ArcelorMittal corrugated steel profiles with performance data
 - **Building Components**: Specialized functions for floor profiles, corrugated sheets, composite slabs
-- **React Web Viewer**: Modern TypeScript frontend with interactive D3.js visualization
+- **Live API**: FastAPI backend for dynamic corrugated system calculations
 - **Geometric Precision**: Perfect alignment between steel and concrete corrugated profiles
-- **Functional Design**: Immutable data structures, composable functions
+- **Production Ready**: Containerized deployment with Render.com configuration
 
-## Installation
+## Architecture
 
+### Backend (Python/FastAPI)
+- **Location**: `/backend/`
+- **Main API**: `backend/api/main.py`
+- **Core Library**: `backend/src/floor_composer/`
+- **Database**: ArcelorMittal steel deck profiles in JSON format
+- **Port**: 8000 (development), configurable in production
+
+### Frontend (React/Next.js)
+- **Location**: `/frontend/`
+- **Framework**: Next.js 15 with React 19
+- **Styling**: Tailwind CSS v4, Shadcn UI components
+- **State Management**: Zustand
+- **Visualization**: D3.js integration
+- **Port**: 3001 (development)
+
+## Quick Start
+
+### Development Setup
 ```bash
-# Install dependencies using Poetry
+# Install backend dependencies
 poetry install --with dev
 
-# Activate Poetry shell
-poetry shell
+# Install frontend dependencies
+cd frontend && npm install
 
-# Or run commands directly with Poetry
-poetry run python examples/basic_usage.py
+# Start backend API server
+poetry run uvicorn backend.api.main:app --reload --host 0.0.0.0 --port 8000
+
+# Start frontend development server (in another terminal)
+cd frontend && npm run dev
 ```
+
+### Access the Application
+- **Frontend**: http://localhost:3001
+- **Backend API**: http://localhost:8000
+- **API Documentation**: http://localhost:8000/docs
 
 ## Quick Start
 
@@ -65,56 +93,58 @@ svg_viewer = SVGCurveViewer()
 svg_content = svg_viewer.plot_curve(rect, stroke_color='#2563eb')
 ```
 
-## Web Visualization
+## Application Features
 
-The system supports both **static data generation** and **live API backend**:
+### Interactive Web Interface
+- **Multi-page Application**: Separate pages for corrugated systems and CLT panels
+- **Dynamic Calculations**: Real-time corrugated system generation via API
+- **Material Controls**: Toggle switches for different material visualizations
+- **Performance Data**: Engineering properties, fire resistance, acoustic performance
+- **Responsive Design**: Modern UI with gray theme and professional styling
 
-### Option 1: Static Data (Recommended for basic use)
-```bash
-# 1. Generate example data (creates JSON files in web/public/data/)
-poetry run python examples/web_demo.py
+### API Endpoints
+- `GET /api/profiles` - Available steel deck profiles
+- `POST /api/corrugated-system` - Generate corrugated system geometry
+- `GET /api/health` - Service health check
 
-# 2. Start the React development server
-cd web && npm run dev
-
-# 3. Open browser to: http://localhost:3001
-```
-
-### Option 2: FastAPI Backend (For corrugated system calculator)
-```bash
-# 1. Start the FastAPI server (runs on port 8000)
-poetry run uvicorn src.api_server:app --reload
-
-# 2. Start the React development server
-cd web && npm run dev
-
-# 3. Open browser to: http://localhost:3001
-```
-
-**Architecture**: 
-- **Static**: Python generates JSON files → React loads them with D3.js
-- **Live API**: FastAPI backend serves corrugated system calculations → React makes HTTP requests
-
-Features:
+### Visualization Features
 - **Interactive D3.js visualization** with zoom, pan, and hover
-- **Material controls** with toggle switches for each material type
-- **Example dropdown** with building sections, corrugated systems, and floor profiles
 - **Perfect geometric alignment** between steel and concrete profiles
 - **Material styling**: Steel (black outline, no fill), concrete (light grey with diagonal hatch)
+- **Performance metrics**: Load tables, span calculations, volume data
 
-## Examples
+## Project Structure
 
-Run the usage examples:
-
-```bash
-# Basic usage examples
-poetry run python examples/basic_usage.py
-
-# Generate web demo data
-poetry run python examples/web_demo.py
-
-# Create default web data
-poetry run python examples/create_default_data.py
+```
+/
+├── backend/                     # Python FastAPI backend
+│   ├── api/                     # FastAPI application
+│   │   └── main.py             # Main API server
+│   ├── src/floor_composer/      # Core Python library
+│   │   ├── core.py             # Geometric functions
+│   │   ├── factories.py        # Shape factories
+│   │   ├── materials.py        # Material definitions
+│   │   ├── visualization.py    # Plotting functions
+│   │   └── web_export.py       # Web format conversion
+│   ├── data/                   # ArcelorMittal steel deck database
+│   ├── requirements.txt        # Python dependencies
+│   └── Dockerfile             # Backend container
+├── frontend/                   # React/Next.js frontend
+│   ├── src/
+│   │   ├── app/               # Next.js app router
+│   │   │   ├── corrugated/    # Corrugated systems page
+│   │   │   └── clt/           # CLT panel page
+│   │   ├── components/        # React components
+│   │   │   └── viewer/        # D3.js visualization
+│   │   ├── lib/               # Utilities and state
+│   │   └── types/             # TypeScript interfaces
+│   ├── public/                # Static assets
+│   ├── package.json           # Node.js dependencies
+│   └── Dockerfile            # Frontend container
+├── examples/                  # Python usage examples
+├── tests/                     # Test suite
+├── pyproject.toml            # Poetry configuration
+└── render.yaml              # Production deployment config
 ```
 
 ## Data Structure
@@ -193,21 +223,52 @@ This design makes curves:
 
 ## Development
 
+### Backend Development
 ```bash
+# Install dependencies
+poetry install --with dev
+
 # Run tests with coverage
 poetry run pytest
 
 # Format code
-poetry run black src/ examples/ tests/
+poetry run black backend/src/ examples/ tests/
 
 # Type checking
-poetry run mypy src/
+poetry run mypy backend/src/
 
 # Lint code
-poetry run flake8 src/ tests/
+poetry run flake8 backend/src/ tests/
 
-# Start Jupyter notebook
-poetry run jupyter notebook
+# Start API server with hot reload
+poetry run uvicorn backend.api.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+### Frontend Development
+```bash
+# Install dependencies
+cd frontend && npm install
+
+# Start development server with Turbopack
+npm run dev
+
+# Build for production
+npm run build
+
+# Lint code
+npm run lint
+```
+
+### Full Stack Development
+```bash
+# Terminal 1: Start backend
+poetry run uvicorn backend.api.main:app --reload --host 0.0.0.0 --port 8000
+
+# Terminal 2: Start frontend
+cd frontend && npm run dev
+
+# Access application at http://localhost:3001
+# API documentation at http://localhost:8000/docs
 ```
 
 ## License
@@ -222,7 +283,39 @@ MIT License - see LICENSE file for details.
 4. Ensure all tests pass
 5. Submit a pull request
 
+## Deployment
+
+The application is configured for production deployment on Render.com:
+
+```yaml
+# render.yaml
+services:
+  - name: floor-composer-backend
+    type: web
+    runtime: python
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && gunicorn api.main:app -w 4 -k uvicorn.workers.UvicornWorker
+    
+  - name: floor-composer-frontend
+    type: web
+    runtime: node
+    buildCommand: cd frontend && npm ci && npm run build
+    startCommand: cd frontend && npm start
+```
+
+### Environment Variables
+- **Backend**: `PYTHONPATH`, `DATABASE_PATH`
+- **Frontend**: `NODE_ENV`, `NEXT_PUBLIC_API_URL`
+
 ## Changelog
+
+### v0.3.0 (Current)
+- **Full-Stack Architecture**: Separate backend and frontend services
+- **FastAPI Backend**: RESTful API with ArcelorMittal steel deck database
+- **Next.js 15 Frontend**: Modern React with Turbopack and TypeScript
+- **Multi-page Application**: Dedicated pages for corrugated systems and CLT panels
+- **Production Deployment**: Containerized services on Render.com
+- **Performance Data**: Engineering calculations and material properties
 
 ### v0.2.0
 - **React Web Viewer**: Modern TypeScript frontend with Next.js and D3.js
@@ -230,7 +323,6 @@ MIT License - see LICENSE file for details.
 - **Material Styling System**: Black steel outlines, concrete with diagonal hatch patterns
 - **Interactive Visualization**: Zoom, pan, hover, material toggles
 - **Shadcn UI Components**: Professional gray theme with responsive design
-- **Fixed Corrugated System**: Trapezoidal steel profile now matches concrete bottom exactly
 
 ### v0.1.0
 - Initial release

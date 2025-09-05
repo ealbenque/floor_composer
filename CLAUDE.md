@@ -1,50 +1,65 @@
 # Floor Composer - Claude Code Configuration
 
 ## Project Overview
-2D geometric curve generator for floor profiles and building components. Uses Poetry for dependency management with a functional programming approach based on dictionaries.
+Full-stack application for generating 2D geometric curves and floor profiles. Features a FastAPI backend with ArcelorMittal steel deck database and a modern React/Next.js frontend. Uses Poetry for Python dependency management.
+
+## Architecture
+- **Backend**: Python/FastAPI in `/backend/` directory
+- **Frontend**: React/Next.js in `/frontend/` directory
+- **Database**: ArcelorMittal steel deck profiles (JSON format)
+- **Deployment**: Containerized services on Render.com
 
 ## Development Setup
-- **Package Manager**: Poetry
+- **Package Manager**: Poetry (backend), npm (frontend)  
 - **Python Version**: >=3.8
+- **Node Version**: Latest LTS
 - **Virtual Environment**: Managed by Poetry
 
 ## Common Commands
 
-### Poetry Commands
+### Backend Commands (Poetry)
 ```bash
-# Install dependencies
+# Install backend dependencies
 poetry install --with dev
 
-# Add new dependency
+# Add new Python dependency
 poetry add package_name
 
 # Add development dependency  
 poetry add --group dev package_name
 
-# Run commands in Poetry environment
-poetry run python script.py
-poetry run jupyter notebook
+# Start FastAPI server
+poetry run uvicorn backend.api.main:app --reload --host 0.0.0.0 --port 8000
 
-# Activate Poetry shell
-poetry shell
-
-# Show environment info
-poetry env info
-```
-
-### Testing & Quality
-```bash
 # Run tests with coverage
 poetry run pytest
 
-# Run type checking
-poetry run mypy src/
+# Format Python code
+poetry run black backend/src/ tests/
 
-# Format code
-poetry run black src/ tests/
+# Type checking
+poetry run mypy backend/src/
 
-# Lint code
-poetry run flake8 src/ tests/
+# Lint Python code
+poetry run flake8 backend/src/ tests/
+```
+
+### Frontend Commands (npm)
+```bash
+# Install frontend dependencies
+cd frontend && npm install
+
+# Start development server with Turbopack
+cd frontend && npm run dev
+
+# Build for production
+cd frontend && npm run build
+
+# Start production server
+cd frontend && npm start
+
+# Lint TypeScript/React code
+cd frontend && npm run lint
 ```
 
 ### Jupyter
@@ -61,66 +76,96 @@ poetry run python -m ipykernel install --user --name floor-composer --display-na
 
 ## Project Structure
 ```
-src/floor_composer/          # Main package
-├── __init__.py
-├── core.py                  # Core geometric functions
-├── factories.py             # Curve factory functions
-├── materials.py             # Material definitions and system
-├── utils.py                 # Utility functions
-├── visualization.py         # Plotting and visualization
-└── web_export.py            # Web export functionality
-
-tests/                       # Test suite
-├── __init__.py
-└── test_core.py
-
-examples/                    # Usage examples
-├── basic_usage.py
-├── create_default_data.py   # Generate default web data
-└── web_demo.py              # Generate full demo examples
-
-polyline_generator.ipynb     # Main Jupyter notebook with full implementation
+/
+├── backend/                         # Python FastAPI backend
+│   ├── api/
+│   │   └── main.py                 # FastAPI application
+│   ├── src/floor_composer/         # Core Python library
+│   │   ├── __init__.py
+│   │   ├── core.py                 # Core geometric functions
+│   │   ├── factories.py            # Curve factory functions
+│   │   ├── materials.py            # Material definitions and system
+│   │   ├── utils.py                # Utility functions
+│   │   ├── visualization.py        # Plotting and visualization
+│   │   └── web_export.py           # Web export functionality
+│   ├── data/                       # ArcelorMittal steel deck database
+│   │   └── arcelor_steel_deck_database.json
+│   ├── requirements.txt            # Python dependencies
+│   └── Dockerfile                  # Backend container
+├── frontend/                       # React/Next.js frontend
+│   ├── src/
+│   │   ├── app/                    # Next.js app router
+│   │   │   ├── layout.tsx          # Root layout
+│   │   │   ├── page.tsx            # Home page
+│   │   │   ├── corrugated/         # Corrugated systems page
+│   │   │   └── clt/                # CLT panel page
+│   │   ├── components/             # React components
+│   │   │   └── viewer/             # D3.js visualization components
+│   │   ├── lib/                    # Utilities and libraries
+│   │   │   ├── store.ts            # Zustand state management
+│   │   │   ├── d3-integration.ts   # D3.js integration
+│   │   │   └── data-loader.ts      # API data loading
+│   │   └── types/                  # TypeScript type definitions
+│   ├── public/                     # Static assets
+│   ├── package.json                # Node.js dependencies
+│   └── Dockerfile                  # Frontend container
+├── tests/                          # Test suite
+├── examples/                       # Python usage examples
+├── pyproject.toml                  # Poetry configuration
+└── render.yaml                     # Production deployment config
 ```
 
 ## Key Dependencies
+
+### Backend (Python)
+- **FastAPI**: >=0.104.0 - Modern web API framework
+- **Uvicorn**: >=0.24.0 - ASGI server
+- **Pydantic**: >=2.0.0 - Data validation
 - **numpy**: >=1.20.0 - Numerical computations
 - **matplotlib**: >=3.5.0 - Plotting and visualization
 - **overrides**: ^7.7.0 - Method override decorators
-- **jupyter**: >=1.0.0 - Interactive development
 - **pytest**: >=7.0 - Testing framework
 - **black**: >=22.0 - Code formatting
 - **mypy**: >=1.0 - Type checking
 - **flake8**: >=5.0 - Code linting
 
+### Frontend (Node.js)
+- **Next.js**: 15.5.2 - React framework with app router
+- **React**: 19.1.0 - UI library
+- **TypeScript**: ^5 - Type-safe JavaScript
+- **D3.js**: ^7.9.0 - Data visualization
+- **Zustand**: ^5.0.8 - State management
+- **Tailwind CSS**: ^4 - Utility-first CSS framework
+- **Radix UI**: Various components - Accessible UI primitives
+- **Shadcn UI**: Design system components
+- **Framer Motion**: ^12.23.12 - Animation library
+
 ## Web Visualization System
 
 ### Architecture
-- **Backend (Python)**: Static JSON generation OR live FastAPI server
-- **Frontend (React + D3.js)**: Modern React app with Shadcn UI components, gray theme, TypeScript
-- **FastAPI Endpoints**: `/api/profiles`, `/api/corrugated-system`, `/api/health` for live calculations
+- **Backend (FastAPI)**: RESTful API with ArcelorMittal steel deck database
+- **Frontend (React/Next.js)**: Modern single-page application with TypeScript
+- **Database**: JSON-based steel profile database with performance calculations
+- **Visualization**: D3.js integration for interactive geometric rendering
 
-### Quick Start Web Viewer
+### API Endpoints
+- `GET /api/profiles` - Available steel deck profiles
+- `POST /api/corrugated-system` - Generate corrugated system geometry  
+- `GET /api/health` - Service health check
+- `GET /docs` - Interactive API documentation (Swagger UI)
 
-**Static Data Mode (Basic Examples):**
+### Full Stack Development Setup
 ```bash
-# Generate example data
-poetry run python examples/web_demo.py
+# Terminal 1: Start FastAPI backend
+poetry run uvicorn backend.api.main:app --reload --host 0.0.0.0 --port 8000
 
-# Start React development server  
-cd web && npm run dev
+# Terminal 2: Start React frontend  
+cd frontend && npm run dev
 
-# Open browser to: http://localhost:3001
-```
-
-**FastAPI Mode (Corrugated System Calculator):**
-```bash
-# Start FastAPI backend (port 8000)
-poetry run python src/api_server.py
-
-# Start React development server (port 3001)
-cd web && npm run dev
-
-# Open browser to: http://localhost:3001
+# Access application
+# Frontend: http://localhost:3001
+# Backend API: http://localhost:8000
+# API Docs: http://localhost:8000/docs
 ```
 
 ### Web Export Workflow
@@ -146,32 +191,30 @@ create_web_export_package(building, "web/data", "my_building")
 - **Styling**: Steel profiles (black outline, no fill), concrete (light grey with diagonal hatch pattern)
 - **Geometric Alignment**: Steel and concrete corrugated profiles use identical polylines for perfect alignment
 
-### Web Directory Structure
-```
-web/                        # React + Next.js application
-├── src/
-│   ├── app/               # Next.js app router
-│   ├── components/        # React components (Header, Viewer, Controls)
-│   ├── lib/               # D3.js integration, state management, data loading
-│   └── types/             # TypeScript interfaces
-├── public/data/           # Generated curve + material JSON files
-├── package.json           # Node.js dependencies
-└── README.md             # React app documentation
-```
+### Frontend Application Features
+- **Multi-page Application**: Home, corrugated systems, CLT panels
+- **Interactive D3.js Visualization**: Zoom, pan, hover with geometric precision
+- **Material System**: Toggle controls for different materials (steel, concrete)
+- **Performance Data**: Engineering calculations, fire resistance, acoustic properties
+- **Responsive Design**: Modern UI with Shadcn components and gray theme
+- **Real-time API Integration**: Dynamic corrugated system generation
 
 ## Architecture Notes
-- **Package Manager**: Poetry handles all Python dependencies
+- **Full-Stack Architecture**: Separate backend and frontend services
+- **Package Managers**: Poetry (Python backend), npm (Node.js frontend)
 - **Command Prefix**: Always use `poetry run` for Python commands
-- **Jupyter Integration**: Kernel "Floor Composer (Poetry)" configured for notebooks
-- **Core Implementation**: Main functionality in `polyline_generator.ipynb`
 - **Design Pattern**: Functional programming with immutable dictionary-based data structures
-- **Frontend Stack**: Modern React + Next.js with TypeScript, Shadcn UI, gray theme
-- **Web Architecture**: Python backend generates JSON, React frontend visualizes with D3.js
-- **User Interface**: Single-page application with example dropdown and responsive design
+- **API-First**: RESTful FastAPI backend with comprehensive OpenAPI documentation
+- **Modern Frontend**: Next.js 15 with React 19, TypeScript, and Turbopack
+- **State Management**: Zustand for client-side state, D3.js for visualization
+- **Containerization**: Docker support for both backend and frontend services
+- **Production Deployment**: Render.com with separate service configurations
 
 ## Development Workflow
-- **Code Quality**: Run `poetry run black src/ tests/` for formatting
-- **Type Safety**: Use `poetry run mypy src/` for type checking
-- **Testing**: Execute `poetry run pytest` for test suite
-- **Linting**: Run `poetry run flake8 src/ tests/` for code quality
-- **Web Development**: Use `cd web && npm run dev` for React development server
+- **Backend Quality**: Run `poetry run black backend/src/ tests/` for formatting
+- **Backend Type Safety**: Use `poetry run mypy backend/src/` for type checking  
+- **Backend Testing**: Execute `poetry run pytest` for test suite
+- **Backend Linting**: Run `poetry run flake8 backend/src/ tests/` for code quality
+- **Frontend Development**: Use `cd frontend && npm run dev` for development server
+- **Frontend Quality**: Use `cd frontend && npm run lint` for ESLint checks
+- **Full Stack**: Run both backend API (port 8000) and frontend (port 3001) simultaneously

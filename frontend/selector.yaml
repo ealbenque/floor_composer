@@ -1,0 +1,67 @@
+Context input
+
+  dropdown
+    name: building code 
+    options:
+      - Eurocodes
+    default: option_1
+
+  dropdown
+    name : country
+    options:
+      - France
+    default : France
+
+  dropdown
+    name: category of use
+    info when hoovered: used to define the load category
+    options:
+      undefined
+      Category A: Residential, domestic. 
+      Category B: Offices.
+      Category C: Areas where people may gather (e.g. schools, theatres).
+      Category D: Shopping areas.
+    default: undefined
+
+  dropdown
+    name: sub category of use
+    behavior : show only if user chooses category C,D or E in the previous dropdown
+    options:
+      if Category C :
+        C1 : Espaces équipés de tables etc., par exemple : écoles, cafés, restaurants, salles de banquet, salles de lecture, salles de réception
+        C2 : Espaces équipés de sièges fixes, par exemple : églises, théâtres ou cinémas, salles de conférence, amphithéâtres, salles de réunion, salles d'attente
+        C3 : Espaces ne présentant pas d'obstacles à la circulation des personnes, par exemple : salles de musée, salles d'exposition etc. et accès des bâtiments publics et administratifs, hôtels, hôpitaux, gares
+        C4 : Espaces permettant des activités physiques, par exemple : dancings, salles de gymnastique, scènes
+        C5 : Espaces susceptibles d'accueillir des foules importantes, par exemple : bâtiments destinés à des événements publics tels que salles de concert, salles de sport y compris tribunes, terrasses et aires d'accès, quais de gare
+      if category D : 
+        D1 : Commerces de détail courants
+        D2 : Grands magasins
+    defaut : undefined
+
+
+Settings used to research the database
+
+  number field
+    name : span (m)
+    default : 5.0
+
+  autofilled parameter with override possibility
+    name : live load (KN/m²)
+    default behavior : autofilled based on the previous selections if matching value otherwise number field
+    custom behavior : in any case user can overwrite the autofilled value in an intuitive way
+
+  number field
+    name : permanent load of non structural elements (KN/m²)
+    default : 0.0
+
+  dropdown
+    name : fire resistance
+    options:
+      - R30
+      - R60
+      - R90
+      - R120
+      - undefined
+    default: undefined
+
+
